@@ -1,0 +1,34 @@
+
+# Create  virtual network cmaz-efe625c7-mod2-vnet-01
+
+az network vnet create -g cmtr-efe625c7-vnet-p-rg -n cloudmentor-vnet-1 -l eastus 
+  --address-prefix 10.2.0.0/16 
+    --subnet-name frontend-02 
+    --subnet-prefix 10.2.0.0/24 
+    --tags Creator=ruslan_ivasiuk@epam.com
+
+
+z network vnet create -g cmtr-efe625c7-vnet-p-rg -n cloudmentor-vnet-2 -l centralus 
+    --address-prefix 10.3.0.0/16 
+    --subnet-name frontend-02 
+    --subnet-prefix 10.3.0.0/24 
+    --tags Creator=ruslan_ivasiuk@epam.com
+
+
+## Create peering from cloudmentor-vnet-1 to cloudmentor-vnet-2. ##
+az network vnet peering create 
+    --name vnet-1-to-vnet-2 
+    --vnet-name cloudmentor-vnet-1 
+    --remote-vnet cloudmentor-vnet-2 
+    --resource-group cmtr-efe625c7-vnet-p-rg
+    --allow-vnet-access 
+    --allow-forwarded-traffic
+
+## Create peering from vnet-2 to vnet-1. ##
+az network vnet peering create 
+    --name vnet-2-to-vnet-1 
+    --vnet-name cloudmentor-vnet-2 
+    --remote-vnet cloudmentor-vnet-1 
+    --resource-group cmtr-efe625c7-vnet-p-rg 
+    --allow-vnet-access 
+    --allow-forwarded-traffic
