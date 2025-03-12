@@ -26,12 +26,16 @@ resource "azurerm_virtual_network" "vnet" {
   tags = var.tags
 }
 
-# Create Subnets
-resource "azurerm_subnet" "subnets" {
-  for_each = toset(var.subnet_names)
-
-  name                 = each.value
+resource "azurerm_subnet" "frontend" {
+  name                 = var.subnet_name_frontend
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [each.value == "frontend" ? "10.0.1.0/24" : "10.0.2.0/24"]
+  address_prefixes     = ["10.0.1.0/24"] # Adjust address range as required
+}
+
+resource "azurerm_subnet" "backend" {
+  name                 = var.subnet_name_backend
+  resource_group_name  = azurerm_resource_group.rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefixes     = ["10.0.2.0/24"] # Adjust address range as required
 }

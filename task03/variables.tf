@@ -19,10 +19,14 @@ variable "vnet_name" {
   type        = string
 }
 
-variable "subnet_names" {
-  description = "List of subnets to be created"
-  type        = list(string)
-  default     = ["frontend", "backend"]
+variable "subnet_name_frontend" {
+  description = "name for the frontend subnet"
+  type        = string
+}
+
+variable "subnet_name_backend" {
+  description = "name for the backend subnet"
+  type        = string
 }
 
 variable "tags" {
