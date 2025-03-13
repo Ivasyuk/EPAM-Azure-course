@@ -63,18 +63,7 @@ variable "tags" {
   description = "Tags for resources"
   type        = map(string)
 }
-
-variable "allow_http_rule" {
-  description = "Network security rule to allow HTTP traffic"
-  type = object({
-    name                       = string
-    priority                   = number
-    direction                  = string
-    access                     = string
-    protocol                   = string
-    source_port_range          = string
-    destination_port_range     = string
-    source_address_prefix      = string
-    destination_address_prefix = string
-  })
+variable "allow_http_rule_name" {
+  description = "Name of the Network Security Group rule for HTTP access"
 }
+

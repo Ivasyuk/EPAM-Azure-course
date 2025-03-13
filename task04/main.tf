@@ -37,15 +37,15 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_security_rule" "allow_http" {
-  name                        = var.allow_http_rule.name
-  priority                    = var.allow_http_rule.priority
-  direction                   = var.allow_http_rule.direction
-  access                      = var.allow_http_rule.access
-  protocol                    = var.allow_http_rule.protocol
-  source_port_range           = var.allow_http_rule.source_port_range
-  destination_port_range      = var.allow_http_rule.destination_port_range
-  source_address_prefix       = var.allow_http_rule.source_address_prefix
-  destination_address_prefix  = var.allow_http_rule.destination_address_prefix
+  name                        = var.allow_http_rule_name
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.rg.name
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
