@@ -3,7 +3,7 @@ location = "East US"
 vm_admin_username = "azureuser"
 
 # Set this manually or provide it during `terraform apply`
-vm_password = "YourSecureP@ssword123"
+vm_password = "password123"
 
 resource_group_name = "cmaz-efe625c7-mod4-rg"
 vnet_name           = "cmaz-efe625c7-mod4-vnet"
