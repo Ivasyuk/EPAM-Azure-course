@@ -15,7 +15,7 @@ dns_label            = "cmaz-efe625c7-mod4-nginx"
 vm_name              = "cmaz-efe625c7-mod4-vm"
 vm_size              = "Standard_F2s_v2"
 allow_http_rule_name = "AllowHTTP"
-allow_ssh_rule_name = "AllowSSH"
+allow_ssh_rule_name  = "AllowSSH"
 
 tags = {
   Creator = "ruslan_ivasiuk@epam.com"

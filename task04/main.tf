@@ -50,8 +50,6 @@ resource "azurerm_network_security_rule" "allow_http" {
   network_security_group_name = azurerm_network_security_group.nsg.name
 }
 
-
-
 resource "azurerm_network_security_rule" "allow_ssh" {
   name                        = var.allow_ssh_rule_name
   priority                    = 1002
