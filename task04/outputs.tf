@@ -1,7 +1,9 @@
 output "vm_public_ip" {
-  value = azurerm_public_ip.public_ip.ip_address
+  description = "value of the public IP address"
+  value       = azurerm_public_ip.public_ip.ip_address
 }
 
 output "vm_fqdn" {
-  value = azurerm_public_ip.public_ip.fqdn
+  description = "value of the public IP FQDN"
+  value       = azurerm_public_ip.public_ip.fqdn
 }
