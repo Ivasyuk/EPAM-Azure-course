@@ -102,7 +102,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   source_image_reference {
     publisher = "Canonical"
     offer     = "ubuntu-24_04-lts"
-    sku       = "serever"
+    sku       = "server"
     version   = "latest"
   }
 
