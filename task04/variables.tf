@@ -74,3 +74,7 @@ variable "allow_ssh_rule_name" {
   type        = string
 }
 
+variable "ip_configuration_name" {
+  description = "The name of the IP configuration"
+  type        = string
+}
