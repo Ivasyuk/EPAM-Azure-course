@@ -1,71 +1,75 @@
+
 module "rg1" {
-  source = "./modules/resource_group"
-  name     = var.rg1_name
-  location = var.rg1_location
-  creator_tag = var.creator_tag
+  source             = "./modules/resource_group"
+  resource_group_name = var.resource_groups.rg1.name
+  location           = var.resource_groups.rg1.location
+  tags               = var.tags
 }
 
 module "rg2" {
-  source = "./modules/resource_group"
-  name     = var.rg2_name
-  location = var.rg2_location
-  creator_tag = var.creator_tag
+  source             = "./modules/resource_group"
+  resource_group_name = var.resource_groups.rg2.name
+  location           = var.resource_groups.rg2.location
+  tags               = var.tags
 }
 
 module "rg3" {
-  source = "./modules/resource_group"
-  name     = var.rg3_name
-  location = var.rg3_location
-  creator_tag = var.creator_tag
+  source             = "./modules/resource_group"
+  resource_group_name = var.resource_groups.rg3.name
+  location           = var.resource_groups.rg3.location
+  tags               = var.tags
 }
 
 module "asp1" {
-  source = "./modules/app_service_plan"
-  name                 = var.asp1_name
-  location             = var.asp1_location
-  resource_group_name  = module.rg1.name
-  sku_tier             = var.asp1_sku_tier
-  sku_size             = var.asp1_sku_size
-  creator_tag          = var.creator_tag
+  source              = "./modules/app_service_plan"
+  name            = var.app_service_plans.asp1.name
+  resource_group_name = module.rg1.resource_group_name
+  location            = module.rg1.resource_group_location
+  sku_tier            = var.app_service_plans.asp1.sku_tier
+  sku_size            = var.app_service_plans.asp1.sku_size
+  worker_count        = var.app_service_plans.asp1.worker_count
+  tags                = var.tags
 }
 
 module "asp2" {
-  source = "./modules/app_service_plan"
-  name                 = var.asp2_name
-  location             = var.asp2_location
-  resource_group_name  = module.rg2.name
-  sku_tier             = var.asp2_sku_tier
-  sku_size             = var.asp2_sku_size
-  creator_tag          = var.creator_tag
+  source              = "./modules/app_service_plan"
+  name            = var.app_service_plans.asp2.name
+  resource_group_name = module.rg2.resource_group_name
+  location            = module.rg2.resource_group_location
+  sku_tier            = var.app_service_plans.asp2.sku_tier
+  sku_size            = var.app_service_plans.asp2.sku_size
+  worker_count        = var.app_service_plans.asp2.worker_count
+  tags                = var.tags
 }
 
 module "app1" {
-  source = "./modules/app_service"
-  name                     = var.app1_name
-  location                 = var.app1_location
-  resource_group_name      = module.rg1.name
-  app_service_plan_id      = module.asp1.id
-  verification_agent_ip   = var.verification_agent_ip
-  creator_tag              = var.creator_tag
+  source              = "./modules/app_service"
+  name                = var.app_services.app1.name
+  resource_group_name = module.rg1.resource_group_name
+  location            = module.rg1.resource_group_location
+  app_service_plan_id = module.asp1.asp_id
+  verification_agent_ip = var.verification_ip
+  tags = var.tags
 }
 
 module "app2" {
-  source = "./modules/app_service"
-  name                     = var.app2_name
-  location                 = var.app2_location
-  resource_group_name      = module.rg2.name
-  app_service_plan_id      = module.asp2.id
-  verification_agent_ip   = var.verification_agent_ip
-  creator_tag              = var.creator_tag
+  source              = "./modules/app_service"
+  name            = var.app_services.app2.name
+  resource_group_name = module.rg2.resource_group_name
+  location            = module.rg2.resource_group_location
+  app_service_plan_id = module.asp2.asp_id
+  verification_agent_ip = var.verification_ip
+  tags = var.tags
+
 }
 
-module "tm" {
-  source = "./modules/traffic_manager"
-  name                    = var.tm_name
-  resource_group_name     = module.rg3.name
-  location                = var.tm_location
-  tm_dns_name             = var.tm_dns_name
-  endpoints               = var.tm_endpoints
-  creator_tag             = var.creator_tag
-}
+module "traffic_manager" {
+  source          = "./modules/traffic_manager"
+  name            = var.tm_profile_name
+  resource_group_name = module.rg3.resource_group_name
+  location            = module.rg3.resource_group_location
+  app1_id         = module.app1.app_id
+  app2_id         = module.app2.app_id
+  tags     = var.tags
 
+}

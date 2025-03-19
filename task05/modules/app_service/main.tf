@@ -3,6 +3,8 @@ resource "azurerm_app_service" "app" {
   location            = var.location
   resource_group_name = var.resource_group_name
   app_service_plan_id = var.app_service_plan_id
+  tags                = var.tags
+
 
   site_config {
     windows_fx_version = "DOTNET|5.0"
@@ -26,8 +28,5 @@ resource "azurerm_app_service" "app" {
       priority = 300
     }
   }
-
-  tags = {
-    "Creator" = var.creator_tag
-  }
+   
 }

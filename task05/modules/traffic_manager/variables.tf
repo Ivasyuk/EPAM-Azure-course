@@ -1,33 +1,30 @@
 variable "name" {
-  description = "Traffic Manager profile name"
+  description = "The name of the Traffic Manager profile."
   type        = string
 }
 
 variable "resource_group_name" {
-  description = "The name of the resource group for Traffic Manager"
+  description = "The name of the resource group where Traffic Manager is located."
   type        = string
 }
 
 variable "location" {
-  description = "The location of the Traffic Manager profile"
+  description = "The location of the Traffic Manager."
   type        = string
 }
 
-variable "tm_dns_name" {
-  description = "The DNS name for the Traffic Manager profile"
+variable "app1_id" {
+  description = "The resource ID of App Service 1."
   type        = string
 }
 
-variable "endpoints" {
-  description = "List of Traffic Manager endpoints"
-  type = list(object({
-    name            = string
-    location        = string
-    app_service_id  = string
-  }))
+variable "app2_id" {
+  description = "The resource ID of App Service 2."
+  type        = string
 }
 
-variable "creator_tag" {
-  description = "Tag for the Traffic Manager"
-  type        = string
+variable "tags" {
+  description = "Tags to apply to the Traffic Manager profile."
+  type        = map(string)
+  default     = {}
 }

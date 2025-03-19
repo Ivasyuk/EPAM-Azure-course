@@ -23,7 +23,7 @@ variable "verification_agent_ip" {
   type        = string
 }
 
-variable "creator_tag" {
-  description = "Tag for the App Service"
-  type        = string
+variable "tags" {
+  type        = map(string)
+  description = "A mapping of tags to assign to the App Service Plan"
 }

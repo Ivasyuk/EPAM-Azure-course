@@ -1,3 +1,3 @@
-output "traffic_manager_fqdn" {
-  value = azurerm_traffic_manager_profile.tm_profile.fqdn
-}
+/* output "traffic_manager_fqdn" {
+  value = module.traffic_manager.tm.dns_config[0].relative_name
+} */

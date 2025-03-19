@@ -1,11 +1,13 @@
-resource "azurerm_traffic_manager_profile" "tm_profile" {
+resource "azurerm_traffic_manager_profile" "tm" {
   name                = var.name
   resource_group_name = var.resource_group_name
-  // location attribute removed
+  profile_status      = "Enabled"
   traffic_routing_method = "Performance"
+  tags                = var.tags
+
   dns_config {
-    relative_name = var.tm_dns_name
-    ttl           = 30
+    relative_name = var.name
+    ttl           = 60
   }
 
   monitor_config {
@@ -13,19 +15,18 @@ resource "azurerm_traffic_manager_profile" "tm_profile" {
     port     = 443
     path     = "/"
   }
-
-  tags = {
-    "Creator" = var.creator_tag
-  }
 }
 
-resource "azurerm_traffic_manager_endpoint" "tm_endpoint" {
-  count = length(var.endpoints)
+resource "azurerm_traffic_manager_azure_endpoint" "app1_endpoint" {
+  name                = "app1-endpoint"
+  profile_id          = azurerm_traffic_manager_profile.tm.id
+  target_resource_id  = var.app1_id
+  weight              = 100
+}
 
-  name                          = var.endpoints[count.index].name
-  profile_name                  = azurerm_traffic_manager_profile.tm_profile.name
-  resource_group_name           = var.resource_group_name
-  endpoint_location             = var.endpoints[count.index].location
-  target_resource_id           = var.endpoints[count.index].app_service_id
-  endpoint_type                 = "AzureEndpoints"
+resource "azurerm_traffic_manager_azure_endpoint" "app2_endpoint" {
+  name                = "app2-endpoint"
+  profile_id          = azurerm_traffic_manager_profile.tm.id
+  target_resource_id  = var.app2_id
+ weight               = 100
 }

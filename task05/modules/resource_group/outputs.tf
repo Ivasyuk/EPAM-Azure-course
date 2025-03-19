@@ -1,9 +1,11 @@
-output "app_service_plan_id" {
-  description = "The ID of the App Service Plan"
-  value       = azurerm_app_service_plan.asp.id
+output "resource_group_id" {
+  value = azurerm_resource_group.rg.id
 }
 
-output "app_service_plan_name" {
-  description = "The name of the App Service Plan"
-  value       = azurerm_app_service_plan.asp.name
+output "resource_group_name" {
+  value = azurerm_resource_group.rg.name
+}
+
+output "resource_group_location" {
+  value = azurerm_resource_group.rg.location
 }

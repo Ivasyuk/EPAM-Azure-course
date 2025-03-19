@@ -1,8 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.name
+  name     = var.resource_group_name
   location = var.location
-
-  tags = {
-    "Creator" = var.creator_tag
-  }
+  tags     = var.tags
 }
