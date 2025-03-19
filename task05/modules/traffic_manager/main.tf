@@ -1,9 +1,9 @@
 resource "azurerm_traffic_manager_profile" "tm" {
-  name                = var.name
-  resource_group_name = var.resource_group_name
-  profile_status      = "Enabled"
-  traffic_routing_method = "Performance"
-  tags                = var.tags
+  name                    = var.name
+  resource_group_name     = var.resource_group_name
+  profile_status          = "Enabled"
+  traffic_routing_method  = "Performance"
+  tags                    = var.tags
 
   dns_config {
     relative_name = var.name
