@@ -10,16 +10,16 @@ resource "azurerm_app_service" "app" {
     windows_fx_version = "DOTNET|5.0"
 
     ip_restriction {
-      name     = "allow-ip"
-      action   = "Allow"
-      priority = 100
+      name       = "allow-ip"
+      action     = "Allow"
+      priority   = 100
       ip_address = var.verification_agent_ip
     }
 
     ip_restriction {
-      name     = "allow-tm"
-      action   = "Allow"
-      priority = 200
+      name        = "allow-tm"
+      action      = "Allow"
+      priority    = 200
       service_tag = "AzureTrafficManager"
     }
 
@@ -28,5 +28,5 @@ resource "azurerm_app_service" "app" {
       priority = 300
     }
   }
-   
+
 }
