@@ -19,23 +19,32 @@ app_service_plans = {
     sku_tier     = "Standard"
     sku_size     = "P0v3"
     worker_count = 2
+    resource_group_key = "rg1"
   }
   asp2 = {
     name         = "cmaz-efe625c7-mod5-asp-02"
     sku_tier     = "Standard"
     sku_size     = "P1v3"
     worker_count = 1
+    resource_group_key = "rg2"
   }
 }
 
 app_services = {
   app1 = {
-    name = "cmaz-efe625c7-mod5-app-01"
+    name                  = "cmaz-efe625c7-mod5-app-01"
+    resource_group_key    = "rg1"
+    app_service_plan_key  = "asp1"
+    verification_agent_ip = "18.153.146.156"
   }
   app2 = {
-    name = "cmaz-efe625c7-mod5-app-02"
+    name                  = "cmaz-efe625c7-mod5-app-02"
+    resource_group_key    = "rg2"
+    app_service_plan_key  = "asp2"
+    verification_agent_ip = "18.153.146.156"
   }
 }
+
 
 tags = {
   Creator = "ruslan_ivasiuk@epam.com"
@@ -45,4 +54,3 @@ tm_profile_name    = "cmaz-efe625c7-mod5-traf"
 tm_routing_method  = "Performance"
 allow_ip_rule_name = "allow-ip"
 allow_tm_rule_name = "allow-tm"
-verification_ip    = "18.153.146.156"

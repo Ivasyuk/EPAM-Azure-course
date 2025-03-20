@@ -12,6 +12,7 @@ variable "app_service_plans" {
     sku_tier     = string
     sku_size     = string
     worker_count = number
+    resource_group_key  = string
   }))
   description = "Configuration for App Service Plans"
 }
@@ -19,6 +20,9 @@ variable "app_service_plans" {
 variable "app_services" {
   type = map(object({
     name = string
+    resource_group_key    = string
+    app_service_plan_key  = string
+    verification_agent_ip = string
   }))
   description = "Configuration for App Services"
 }
