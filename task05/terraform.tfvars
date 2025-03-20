@@ -15,17 +15,17 @@ resource_groups = {
 
 app_service_plans = {
   asp1 = {
-    name         = "cmaz-efe625c7-mod5-asp-01"
-    sku_tier     = "Standard"
-    sku_size     = "P0v3"
-    worker_count = 2
+    name               = "cmaz-efe625c7-mod5-asp-01"
+    sku_tier           = "Standard"
+    sku_size           = "P0v3"
+    worker_count       = 2
     resource_group_key = "rg1"
   }
   asp2 = {
-    name         = "cmaz-efe625c7-mod5-asp-02"
-    sku_tier     = "Standard"
-    sku_size     = "P1v3"
-    worker_count = 1
+    name               = "cmaz-efe625c7-mod5-asp-02"
+    sku_tier           = "Standard"
+    sku_size           = "P1v3"
+    worker_count       = 1
     resource_group_key = "rg2"
   }
 }
