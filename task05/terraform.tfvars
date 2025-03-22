@@ -35,13 +35,11 @@ app_services = {
     name                  = "cmaz-efe625c7-mod5-app-01"
     resource_group_key    = "rg1"
     app_service_plan_key  = "asp1"
-    verification_agent_ip = "18.153.146.156"
   }
   app2 = {
     name                  = "cmaz-efe625c7-mod5-app-02"
     resource_group_key    = "rg2"
     app_service_plan_key  = "asp2"
-    verification_agent_ip = "18.153.146.156"
   }
 }
 
@@ -54,3 +52,4 @@ tm_profile_name    = "cmaz-efe625c7-mod5-traf"
 tm_routing_method  = "Performance"
 allow_ip_rule_name = "allow-ip"
 allow_tm_rule_name = "allow-tm"
+verification_ip = "18.153.146.156"
