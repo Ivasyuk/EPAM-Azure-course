@@ -3,7 +3,7 @@ variable "resource_group_name" {
   type        = string
 }
 
-variable "resource_group_location" {
+variable "location" {
   description = "Resource Group Name"
   type        = string
 }
@@ -11,4 +11,15 @@ variable "resource_group_location" {
 variable "tags" {
   description = "Resource Group Name"
   type        = map(string)
+}
+
+variable "sql_server_name" {
+  description = "The name of the SQL server"
+  type        = string
+  default     = "my-sql-server"
+}
+
+variable "database_name" {
+  description = "The name of the SQL Database"
+  type        = string
 }
