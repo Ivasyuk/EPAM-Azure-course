@@ -25,11 +25,14 @@ variable "database_name" {
 
 variable "tags" {
   description = "Resource Group Name"
-  type        = map(string)
+  type        = object({
+    Creator = string 
+  })
 }
 
-variable "key_vault_name" {
-  description = "The name of the Key Vault"
+
+variable "key_vault_id" {
+  description = "The ID of the existing Key Vault"
   type        = string
 }
 

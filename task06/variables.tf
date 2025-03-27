@@ -53,3 +53,15 @@ variable "allowed_ip_address" {
   description = "The IP address to allow connections to the SQL Server"
   type        = string
 }
+
+variable "key_vault_name" {
+  description = "The name of the Key Vault"
+  type        = string
+  
+}
+
+variable "resource_group_name_vault" {
+  description = "The name of the Azure Resource Group"
+  type        = string
+  
+}

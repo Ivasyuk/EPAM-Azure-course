@@ -31,26 +31,16 @@ resource "azurerm_mssql_database" "db" {
 }
 
 
-resource "azurerm_key_vault" "example" {
-  name                = var.key_vault_name
-  location            = var.location
-  resource_group_name = var.resource_group_name_vault
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  sku_name            = "standard"
-
-  tags = var.tags
-}
-
 resource "azurerm_key_vault_secret" "sql_admin_name" {
   name         = var.sql_kv_secret_name
   value        = var.admin_username
-  key_vault_id = azurerm_key_vault.example.id
+  key_vault_id = var.key_vault_id
 }
 
 resource "azurerm_key_vault_secret" "sql_admin_password" {
   name         = var.sql_kv_secret_password
   value        = random_password.sql_admin.result
-  key_vault_id = azurerm_key_vault.example.id
+  key_vault_id = var.key_vault_id
 }
 
 # Allow connection from Azure services
