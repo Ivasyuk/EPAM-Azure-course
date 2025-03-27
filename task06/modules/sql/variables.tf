@@ -25,8 +25,8 @@ variable "database_name" {
 
 variable "tags" {
   description = "Resource Group Name"
-  type        = object({
-    Creator = string 
+  type = object({
+    Creator = string
   })
 }
 
