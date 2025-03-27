@@ -54,12 +54,6 @@ variable "allowed_ip_address" {
   type        = string
 }
 
-variable "key_vault_name" {
-  description = "The name of the Key Vault"
-  type        = string
-
-}
-
 variable "resource_group_name_vault" {
   description = "The name of the Azure Resource Group"
   type        = string
