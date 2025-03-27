@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.resource_group_name
+  name     = local.rg_name
   location = var.location
   tags     = var.tags
 }
@@ -7,12 +7,12 @@ resource "azurerm_resource_group" "rg" {
 
 module "sql" {
   source                    = "./modules/sql"
-  sql_server_name           = var.sql_server_name
-  resource_group_name       = var.resource_group_name
+  sql_server_name           = local.sql_server_name
+  resource_group_name       = local.rg_name
   location                  = var.location
   admin_username            = var.admin_username
   tags                      = var.tags
-  database_name             = var.database_name
+  database_name             = local.sql_db_name
   resource_group_name_vault = var.resource_group_name_vault
   sql_kv_secret_password    = var.sql_kv_secret_password
   sql_kv_secret_name        = var.sql_kv_secret_name

@@ -65,3 +65,9 @@ variable "resource_group_name_vault" {
   type        = string
   
 }
+
+variable "name_prefix" {
+  description = "The prefix for naming all resources"
+  type        = string
+  default     = "cmaz-efe625c7-mod6"
+}
