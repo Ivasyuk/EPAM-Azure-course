@@ -37,6 +37,7 @@ variable "linux_fx_version" {
 variable "connection_string" {
   description = "The connection string to the database"
   type        = string
+  sensitive   = true
 }
 
 variable "tags" {

@@ -6,4 +6,5 @@ output "connection_string" {
     var.admin_username,
     random_password.sql_admin.result
   )
+  sensitive = true
 }
