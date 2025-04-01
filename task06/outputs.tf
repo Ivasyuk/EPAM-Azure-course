@@ -10,5 +10,5 @@ output "app_hostname" {
 
 output "connection_string" {
   sensitive = true
-  value = module.sql.sql_connection_string
+  value     = module.sql.sql_connection_string
 }
