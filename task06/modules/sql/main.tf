@@ -58,7 +58,7 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
 
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
   name             = "allow-azure-services"
-  server_id        = azurerm_sql_server.server.id
+  server_id        = azurerm_mssql_server.server.id
   start_ip_address = "0.0.0.0" # Allow Azure services
   end_ip_address   = "0.0.0.0"
 }
