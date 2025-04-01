@@ -1,4 +1,4 @@
-location = "East US"
+location = "West US"
 
 tags = {
   Creator = "ruslan_ivasiuk@epam.com"
