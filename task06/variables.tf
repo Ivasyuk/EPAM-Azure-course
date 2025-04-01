@@ -54,11 +54,6 @@ variable "allowed_ip_address" {
   type        = string
 }
 
-variable "resource_group_name_vault" {
-  description = "The name of the Azure Resource Group"
-  type        = string
-
-}
 
 variable "name_prefix" {
   description = "The prefix for naming all resources"
