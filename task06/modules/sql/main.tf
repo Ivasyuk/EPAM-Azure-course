@@ -1,16 +1,15 @@
-# Create Azure SQL Server
 
-
-resource "azurerm_mssql_server" "server" {
+resource "azurerm_sql_server" "server" {
   name                         = var.sql_server_name
   resource_group_name          = var.resource_group_name
   location                     = var.location
-  administrator_login          = var.admin_username
-  administrator_login_password = random_password.sql_admin.result
   version                      = "12.0"
+  administrator_login          = var.admin_username
+  administrator_login_password = azurerm_key_vault_secret.sql_admin_password.value
 
   tags = var.tags
 }
+
 
 # Generate a Random password for SQL administrator
 resource "random_password" "sql_admin" {
@@ -21,14 +20,15 @@ resource "random_password" "sql_admin" {
 }
 
 
-resource "azurerm_mssql_database" "db" {
-  name        = var.database_name
-  server_id   = azurerm_mssql_server.server.id
-  sku_name    = "S2" # Standard tier with 50 DTUs
-  collation   = "SQL_Latin1_General_CP1_CI_AS"
-  max_size_gb = 10
-  tags        = var.tags
+resource "azurerm_sql_database" "this" {
+  name                             = var.database_name
+  resource_group_name              = var.resource_group_name
+  location                         = var.location
+  server_name                      = var.sql_server_name
+  requested_service_objective_name = "S2"
+  collation                        = "SQL_Latin1_General_CP1_CI_AS"
 }
+
 
 
 resource "azurerm_key_vault_secret" "sql_admin_name" {
