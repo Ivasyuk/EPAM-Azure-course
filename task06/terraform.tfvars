@@ -1,9 +1,8 @@
-location = "West US"
+location = "East US 2"
 
 tags = {
   Creator = "ruslan_ivasiuk@epam.com"
 }
-
 
 database_name = "cmaz-efe625c7-mod6-sql-db"
 
