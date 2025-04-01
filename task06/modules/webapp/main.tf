@@ -20,6 +20,7 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 
   app_settings = {
+    linux_fx_version = "DOTNETCORE|8.0"
     DATABASE_CONNECTION_STRING = var.sql_connection_string
   }
 
