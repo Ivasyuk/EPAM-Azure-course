@@ -13,10 +13,6 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "sql_server_name" {
-  description = "The name of the SQL server"
-  type        = string
-}
 
 variable "database_name" {
   description = "The name of the SQL Database"

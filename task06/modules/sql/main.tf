@@ -23,7 +23,7 @@ resource "random_password" "sql_admin" {
 
 resource "azurerm_mssql_database" "db" {
   name        = var.database_name
-  server_id   = azurerm_sql_server.server.id
+  server_id   = azurerm_mssql_server.server.id
   sku_name    = "S2" # Standard tier with 50 DTUs
   collation   = "SQL_Latin1_General_CP1_CI_AS"
   max_size_gb = 10
