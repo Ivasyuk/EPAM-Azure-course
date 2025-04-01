@@ -43,18 +43,19 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
   key_vault_id = var.key_vault_id
 }
 
-# Allow connection from Azure services
-resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
-  name             = "AllowAzureServices"
-  server_id        = azurerm_mssql_server.server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
+resource "azurerm_sql_firewall_rule" "allow_azure_services" {
+  name                = "allow-azure-services"
+  resource_group_name = var.resource_group_name
+  server_name         = azurerm_sql_server.server.name
+  start_ip_address    = "0.0.0.0" # Allow Azure services
+  end_ip_address      = "0.0.0.0"
 }
 
-# Allow connection from a specific IP address
-resource "azurerm_mssql_firewall_rule" "allow_specific_ip" {
-  name             = "AllowSpecificIP"
-  server_id        = azurerm_mssql_server.server.id
-  start_ip_address = var.allowed_ip_address
-  end_ip_address   = var.allowed_ip_address
+resource "azurerm_sql_firewall_rule" "allow_specific_ip" {
+  name        = "allow-specific-ip"
+  server_name = azurerm_sql_server.server.name
+
+  resource_group_name = var.resource_group_name
+  start_ip_address    = var.allowed_ip_address # Allow the specified IP address
+  end_ip_address      = var.allowed_ip_address
 }
