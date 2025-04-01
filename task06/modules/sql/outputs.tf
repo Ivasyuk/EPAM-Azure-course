@@ -1,8 +1,8 @@
 output "sql_connection_string" {
   description = "The connection string for the SQL Database in ADO.NET format"
   value = format("Server=tcp:%s.database.windows.net,1433;Initial Catalog=%s;User ID=%s;Password=%s;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
-    azurerm_mssql_server.server.name,
-    azurerm_mssql_database.db.name,
+    azurerm_sql_server.server.name,
+    azurerm_sql_database.db.name,
     var.admin_username,
     random_password.sql_admin.result
   )
@@ -10,5 +10,5 @@ output "sql_connection_string" {
 }
 output "sql_server_fqdn" {
   description = "The fully qualified domain name (FQDN) of the SQL Server"
-  value       = azurerm_mssql_server.server.fully_qualified_domain_name
+  value       = azurerm_sql_server.server.fully_qualified_domain_name
 }
