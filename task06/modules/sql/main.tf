@@ -50,7 +50,7 @@ resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_specific_ip" {
-  name             = "AllowSpecificIP"
+  name             = "allow-verification-ip"
   server_id        = azurerm_mssql_server.server.id
   start_ip_address = var.allowed_ip_address # Allow the specified IP address
   end_ip_address   = var.allowed_ip_address
