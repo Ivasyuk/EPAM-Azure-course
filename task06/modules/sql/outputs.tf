@@ -1,5 +1,5 @@
 output "sql_connection_string" {
-description = "The connection string for the SQL Database in ADO.NET format"
+  description = "The connection string for the SQL Database in ADO.NET format"
   value = format(
     "Server=tcp:%s,1433;Initial Catalog=%s;Persist Security Info=False;User ID=%s;Password=%s;",
     azurerm_mssql_server.server.fully_qualified_domain_name,
