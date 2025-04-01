@@ -65,3 +65,14 @@ variable "name_prefix" {
   type        = string
   default     = "cmaz-efe625c7-mod6"
 }
+
+variable "os_type" {
+  description = "The OS type for the App Service Plan"
+  type        = string
+  default     = "Linux"
+}
+
+variable "sku_name" {
+  description = "The SKU tier for the App Service Plan"
+  type        = string
+}

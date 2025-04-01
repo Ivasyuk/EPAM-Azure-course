@@ -25,3 +25,16 @@ data "azurerm_key_vault" "existing" {
   name                = var.key_vault_name
   resource_group_name = var.resource_group_name_vault
 }
+
+module "webapp" {
+  source              = "./modules/webapp"
+  asp_name            = local.asp_name
+  webapp_name         = local.app_name
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.location
+  sku_name            = var.sku_name
+  os_type = var.os_type    
+  linux_fx_version    = "PYTHON|3.9"
+  connection_string   = module.sql.connection_string
+  tags                = var.tags
+}
