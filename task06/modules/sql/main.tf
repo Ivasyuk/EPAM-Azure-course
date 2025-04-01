@@ -6,6 +6,8 @@ resource "azurerm_mssql_server" "server" {
   version                      = "12.0"
   administrator_login          = var.admin_username
   administrator_login_password = azurerm_key_vault_secret.sql_admin_password.value
+  
+  tags = var.tags
 }
 
 resource "azurerm_mssql_database" "db" {
