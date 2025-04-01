@@ -30,20 +30,6 @@ resource "random_password" "sql_admin" {
   lower   = true
 }
 
-
-resource "azurerm_sql_database" "db" {
-  name                             = var.database_name
-  resource_group_name              = var.resource_group_name
-  location                         = var.location
-  server_name                      = var.sql_server_name
-  requested_service_objective_name = "S2"
-  collation                        = "SQL_Latin1_General_CP1_CI_AS"
-}
-
-
-
-
-
 resource "azurerm_key_vault_secret" "sql_admin_name" {
   name         = var.sql_kv_secret_name
   value        = var.admin_username
