@@ -35,6 +35,6 @@ module "webapp" {
   sku_name            = var.sku_name
   os_type             = var.os_type
   linux_fx_version    = "PYTHON|3.9"
-  connection_string   = module.sql.connection_string
+  sql_connection_string = module.sql.sql_connection_string
   tags                = var.tags
 }

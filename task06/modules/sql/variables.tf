@@ -56,3 +56,4 @@ variable "allowed_ip_address" {
   description = "The IP address to allow connections to the SQL Server"
   type        = string
 }
+

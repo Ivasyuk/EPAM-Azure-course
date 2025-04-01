@@ -21,8 +21,7 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 
   app_settings = {
-    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-    DATABASE_CONNECTION_STRING          = var.connection_string
+    DATABASE_CONNECTION_STRING          = var.sql_connection_string
   }
 
   tags = var.tags

@@ -34,8 +34,8 @@ variable "linux_fx_version" {
   type        = string
 }
 
-variable "connection_string" {
-  description = "The connection string to the database"
+variable "sql_connection_string" {
+  description = "The SQL Database connection string in ADO.NET format"
   type        = string
   sensitive   = true
 }
