@@ -12,7 +12,7 @@ resource "azurerm_service_plan" "asp" {
 
 resource "azurerm_linux_web_app" "webapp" {
   name                = var.webapp_name
-  location            = var.location
+  location            = azurerm_service_plan.asp.location
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.asp.id
 
@@ -24,4 +24,6 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 
   tags = var.tags
+
+  depends_on = [module.sql]
 }
