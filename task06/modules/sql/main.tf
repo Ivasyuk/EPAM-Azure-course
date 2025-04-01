@@ -57,15 +57,15 @@ resource "azurerm_key_vault_secret" "sql_admin_password" {
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
-  name                = "allow-azure-services"
-  server_id         = azurerm_sql_server.server.id
-  start_ip_address    = "0.0.0.0" # Allow Azure services
-  end_ip_address      = "0.0.0.0"
+  name             = "allow-azure-services"
+  server_id        = azurerm_sql_server.server.id
+  start_ip_address = "0.0.0.0" # Allow Azure services
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_specific_ip" {
-  name        = "allow-specific-ip"
-  server_id = azurerm_mssql_server.server.id
-  start_ip_address    = var.allowed_ip_address # Allow the specified IP address
-  end_ip_address      = var.allowed_ip_address
+  name             = "allow-specific-ip"
+  server_id        = azurerm_mssql_server.server.id
+  start_ip_address = var.allowed_ip_address # Allow the specified IP address
+  end_ip_address   = var.allowed_ip_address
 }
