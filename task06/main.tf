@@ -33,7 +33,7 @@ module "webapp" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = var.location
   sku_name            = var.sku_name
-  os_type = var.os_type    
+  os_type             = var.os_type
   linux_fx_version    = "PYTHON|3.9"
   connection_string   = module.sql.connection_string
   tags                = var.tags
