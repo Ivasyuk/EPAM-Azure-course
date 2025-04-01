@@ -24,6 +24,4 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 
   tags = var.tags
-
-  depends_on = [modules.sql]
 }
