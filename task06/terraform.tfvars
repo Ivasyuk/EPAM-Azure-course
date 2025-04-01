@@ -16,7 +16,7 @@ sql_kv_secret_name = "sql-admin-name"
 
 sql_kv_secret_password = "sql-admin-password"
 
-allowed_ip_address = "18.153.146.156"
+allowed_ip_address = "188.163.114.250"
 
 os_type = "Linux"
 
