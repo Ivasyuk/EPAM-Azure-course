@@ -8,7 +8,7 @@ output "app_hostname" {
   value       = module.webapp.app_hostname
 }
 
-output "connection_string" {
+output "sql_connection_string" {
   sensitive = true
   value     = module.sql.sql_connection_string
 }
