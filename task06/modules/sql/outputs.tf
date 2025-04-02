@@ -1,14 +1,17 @@
+
+
 output "sql_connection_string" {
+  description = "SQL connection string"
   sensitive   = true
-  description = "The connection string for the SQL Database"
-  value       = <<-EOT
-                Server="tcp:${azurerm_mssql_server.server.name},1433;
-                Initial Catalog=${azurerm_mssql_database.db.name};
-                Persist Security Info=False;User ID=${azurerm_mssql_server.server.administrator_login};
-                Password=${azurerm_mssql_server.server.administrator_login_password};
-                MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-                EOT
+  value = format(
+    "Server=tcp:%s.database.windows.net,1433;Initial Catalog=%s;Persist Security Info=False;User ID=%s;Password=%s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+    azurerm_mssql_server.server.name,
+    azurerm_mssql_database.db.name,
+    var.sql.admin_username,
+    random_password.password.result
+  )
 }
+ 
 
 output "sql_server_fqdn" {
   description = "The fully qualified domain name (FQDN) of the SQL Server"
