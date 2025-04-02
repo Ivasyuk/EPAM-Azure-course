@@ -11,7 +11,7 @@ output "sql_connection_string" {
     random_password.password.result
   )
 }
- 
+
 
 output "sql_server_fqdn" {
   description = "The fully qualified domain name (FQDN) of the SQL Server"
