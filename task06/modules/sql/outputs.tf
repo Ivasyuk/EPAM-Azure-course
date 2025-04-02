@@ -8,7 +8,7 @@ output "sql_connection_string" {
     azurerm_mssql_server.server.name,
     azurerm_mssql_database.db.name,
     var.sql.admin_username,
-    random_password.sql_admin.result
+    azurerm_key_vault_secret.sql_admin_password.value
   )
 }
 
