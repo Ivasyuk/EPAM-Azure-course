@@ -7,7 +7,7 @@ output "sql_connection_string" {
     "Server=tcp:%s.database.windows.net,1433;Initial Catalog=%s;Persist Security Info=False;User ID=%s;Password=%s;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
     azurerm_mssql_server.server.name,
     azurerm_mssql_database.db.name,
-    var.sql.admin_username,
+    var.admin_username,
     azurerm_key_vault_secret.sql_admin_password.value
   )
 }
