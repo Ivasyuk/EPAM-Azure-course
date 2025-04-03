@@ -13,13 +13,18 @@ resource "azurerm_linux_web_app" "webapp" {
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.asp.id
 
-  site_config {
+
+site_config {
+    application_stack {
+      
+      dotnet_version = "8.0"
+    }
   }
 
-  app_settings = {
-    linux_fx_version           = "DOTNETCORE|8.0"
-    DATABASE_CONNECTION_STRING = var.sql_connection_string
+  connection_string {
+    name  = "sql_connection_string"
+    type  = "SQLServer"
+    value = var.sql_connection_string
   }
-
-  tags = var.tags
 }
+ 
