@@ -13,10 +13,13 @@ resource "azurerm_linux_web_app" "webapp" {
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.asp.id
 
-
+  app_settings = {
+    WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
+    DATABASE_CONNECTION_STRING          = var.sql_connection_string
+  }
+  
   site_config {
     application_stack {
-
       dotnet_version = "8.0"
     }
   }
