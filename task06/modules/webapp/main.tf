@@ -25,7 +25,7 @@ resource "azurerm_linux_web_app" "webapp" {
     type  = "SQLServer"
     value = var.sql_connection_string
   }
-    tags                = var.tags
+  tags = var.tags
 }
 
   
