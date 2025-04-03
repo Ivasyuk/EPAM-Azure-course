@@ -7,9 +7,6 @@ resource "azurerm_service_plan" "asp" {
   sku_name            = var.sku_name
   tags                = var.tags
 }
-
-
-
 resource "azurerm_linux_web_app" "webapp" {
   name                = var.webapp_name
   location            = azurerm_service_plan.asp.location

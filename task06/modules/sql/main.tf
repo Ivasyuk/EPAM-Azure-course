@@ -22,8 +22,6 @@ resource "azurerm_mssql_database" "db" {
   tags = var.tags
 }
 
-
-
 # Generate a Random password for SQL administrator
 resource "random_password" "sql_admin" {
   length  = 16
