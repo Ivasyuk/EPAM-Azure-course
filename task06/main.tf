@@ -4,7 +4,6 @@ resource "azurerm_resource_group" "rg" {
   tags     = var.tags
 }
 
-
 module "sql" {
   source                    = "./modules/sql"
   sql_server_name           = local.sql_server_name
@@ -20,7 +19,6 @@ module "sql" {
   allowed_ip_address        = var.allowed_ip_address
 }
 
-# Access information about an existing Key Vault
 data "azurerm_key_vault" "my_vault" {
   name                = var.key_vault_name
   resource_group_name = var.resource_group_name_vault
