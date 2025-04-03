@@ -1,5 +1,3 @@
-
-
 output "sql_connection_string" {
   description = "SQL connection string"
   sensitive   = true
