@@ -14,9 +14,9 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id     = azurerm_service_plan.asp.id
 
 
-site_config {
+  site_config {
     application_stack {
-      
+
       dotnet_version = "8.0"
     }
   }
@@ -27,4 +27,4 @@ site_config {
     value = var.sql_connection_string
   }
 }
- 
+
