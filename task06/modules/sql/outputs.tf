@@ -1,14 +1,7 @@
 output "sql_connection_string" {
   description = "SQL connection string"
   sensitive   = true
-  value       = <<-EOT
-    "Server=tcp:${azurerm_mssql_server.server.name}.database.windows.net,1433;
-    Initial Catalog=${azurerm_mssql_database.db.name};
-    Persist Security Info=False;
-    User ID=${var.admin_username};
-    Password=${random_password.sql_admin.result};
-    MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  EOT
+  value       = "Server=tcp:${azurerm_mssql_server.server.name}.database.windows.net,1433;Initial Catalog=${azurerm_mssql_database.db.name};Persist Security Info=False;User ID=${azurerm_mssql_server.server.administrator_login};Password=${azurerm_mssql_server.server.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 }
 
 output "sql_server_fqdn" {
