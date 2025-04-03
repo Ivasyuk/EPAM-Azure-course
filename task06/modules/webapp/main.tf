@@ -17,7 +17,7 @@ resource "azurerm_linux_web_app" "webapp" {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
     DATABASE_CONNECTION_STRING          = var.sql_connection_string
   }
-  
+
   site_config {
     application_stack {
       dotnet_version = "8.0"
