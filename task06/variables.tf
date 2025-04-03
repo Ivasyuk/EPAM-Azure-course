@@ -54,7 +54,6 @@ variable "allowed_ip_address" {
 variable "name_prefix" {
   description = "The prefix for naming all resources"
   type        = string
-  default     = "cmaz-efe625c7-mod6"
 }
 
 variable "os_type" {
