@@ -16,12 +16,12 @@ module "sql" {
   resource_group_name_vault = var.resource_group_name_vault
   sql_kv_secret_password    = var.sql_kv_secret_password
   sql_kv_secret_name        = var.sql_kv_secret_name
-  key_vault_id              = data.azurerm_key_vault.existing.id
+  key_vault_id              = data.azurerm_key_vault.my_vault.id
   allowed_ip_address        = var.allowed_ip_address
 }
 
 # Access information about an existing Key Vault
-data "azurerm_key_vault" "existing" {
+data "azurerm_key_vault" "my_vault" {
   name                = var.key_vault_name
   resource_group_name = var.resource_group_name_vault
 }
