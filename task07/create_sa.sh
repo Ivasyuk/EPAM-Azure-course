@@ -1,7 +1,10 @@
 # Set variables
 RG_NAME="epam-task07-rg"
-STORAGE_ACCOUNT_NAME="examplestorageaccttf01"  # must be globally unique
-LOCATION="East US"
+STORAGE_ACCOUNT_NAME="ruslanivasiukepamtask07"  # must be globally unique
+LOCATION="West US"
+
+
+az group create --location $LOCATION --resource-group $RG_NAME
 
 # Create Storage Account
 az storage account create \
