@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Install prerequisites
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+dpkg -i packages-microsoft-prod.deb
+apt-get update
+apt-get install blobfuse
+
+mkdir /mnt/resource/blobfusetmp -p
+sudo chown '$(whoami)' /mnt/resource/blobfusetmp
+
+
+cd /
+mkdir -p /mnt/blobfuse
+mkdir -p /etc/blobfuse
+
+echo "accountName ${storage_account_name}" >> /etc/blobfuse/blobfuse.cfg
+echo "accountKey ${storage_account_key}" >> /etc/blobfuse/blobfuse.cfg
+echo "containerName ${container_name}" >> /etc/blobfuse/blobfuse.cfg
+echo "authType Key" >> /etc/blobfuse/blobfuse.cfg
+
+chmod 600 /etc/blobfuse/blobfuse.cfg
+
+# Mount blobfuse
+blobfuse /mnt/blobfuse --tmp-path=/mnt/resource/blobfusetmp --config-file=/etc/blobfuse/blobfuse.cfg -o attr_timeout=240 -o entry_timeout=240 -o negative_timeout=120 -o allow_other
+
+
+# Make mount persistent via /etc/fstab
+echo "blobfuse /mnt/blobfuse fuse defaults,configfile=/etc/blobfuse/blobfuse.cfg,attr_timeout=240,entry_timeout=240,negative_timeout=120,allow_other 0 0" >> /etc/fstab
+
+

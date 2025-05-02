@@ -1,7 +1,7 @@
 # Variables
 RESOURCE_GROUP_NAME="epam-task07-tfstate-rg"
 LOCATION="West US"
-STORAGE_ACCOUNT_NAME="epamtask07tfstate$(random -n 6)"  # Adding random suffix for uniqueness
+STORAGE_ACCOUNT_NAME="epamtask07tfstate"  
 CONTAINER_NAME="tfstate"
 
 # Print the plan
