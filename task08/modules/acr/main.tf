@@ -12,8 +12,8 @@ resource "azurerm_container_registry_task" "task08_acr_task" {
     os = "Linux"
   }
   docker_step {
-    dockerfile_path      = "Dockerfile"
-    context_path         = "https://github.com/Ivasyuk/EPAM-Azure-course#main:task08/application/"
+    dockerfile_path      = "task08/application/Dockerfile"
+    context_path         = "https://github.com/Ivasyuk/EPAM-Azure-course#main:"
     context_access_token = "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"
     image_names          = ["ruslantask08test"]
   }
