@@ -12,7 +12,7 @@ module "main_azure_container_registry" {
     acr_name = "cmtrefe625c7mod8cr"
     acr_sku_name = "Basic"
     context_path = "https://github.com/Ivasyuk/EPAM-Azure-course#main:task08/application/"
-    context_access_token = "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"
+    context_access_token = 
     image_names = ["ruslanivasiuktask08"]
 
 }
