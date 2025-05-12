@@ -1,3 +1,4 @@
+
 variable "resource_group_name" {
     description = "name of resource group"
     type = string
@@ -32,4 +33,9 @@ variable "image_names" {
     description = "name for image"
     type = list
   
+}
+
+variable "git_pat" {
+  type        = string
+  sensitive   = true
 }
