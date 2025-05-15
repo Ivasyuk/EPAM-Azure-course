@@ -1,8 +1,8 @@
 resource "azurerm_container_registry" "task08_acr" {
-  name                = var.acr_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  sku                 = var.acr_sku_name
+  name                          = var.acr_name
+  resource_group_name           = var.resource_group_name
+  location                      = var.location
+  sku                           = var.acr_sku_name
   admin_enabled                 = false
   public_network_access_enabled = true
 }
@@ -15,7 +15,7 @@ resource "azurerm_container_registry_task" "task08_acr_task" {
   }
   docker_step {
     dockerfile_path      = "Dockerfile"
-    context_path         = var.context_path 
+    context_path         = var.context_path
     context_access_token = var.git_pat
     image_names          = var.image_names
   }

@@ -3,9 +3,9 @@ resource "azurerm_container_group" "container" {
   location            = var.location
   resource_group_name = var.resource_group_name
 
-  ip_address_type     = "Public"
-  os_type             = "Linux"
-  restart_policy      = var.restart_policy
+  ip_address_type = "Public"
+  os_type         = "Linux"
+  restart_policy  = var.restart_policy
 
   container {
     name   = var.container_name
@@ -17,9 +17,9 @@ resource "azurerm_container_group" "container" {
       protocol = "TCP"
     }
     environment_variables = {
-      CREATOR         = "ACI"
-      REDIS_PORT      = "6380"
-      REDIS_SSL_MODE  = "True"
+      CREATOR        = "ACI"
+      REDIS_PORT     = "6380"
+      REDIS_SSL_MODE = "True"
     }
   }
 
