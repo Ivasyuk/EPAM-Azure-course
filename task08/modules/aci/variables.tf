@@ -1,54 +1,39 @@
-variable "container_name" {
-  description = "Name of the Azure Container"
+variable "name" {
   type        = string
-  default     = "ruslanivasiuktask08"
+  description = "Name of the Azure Container Instance"
 }
 
-variable "aci_name" {
-  description = "Name of the container instance"
+variable "dns_label" {
   type        = string
+  description = "DNS name label for the ACI"
 }
 
 variable "location" {
-  description = "Azure region where resources will be created"
   type        = string
+  description = "Azure region where the ACI will be deployed."
 }
 
-variable "restart_policy" {
-  description = "Restart policy for the container group"
+variable "resource_group" {
   type        = string
-  default     = "Always"
+  description = "Name of the resource group for the ACI."
 }
 
-variable "resource_group_name" {
-  description = "Name of the resource group"
+variable "image" {
   type        = string
+  description = "Container image name to run in the ACI"
 }
 
-variable "acr_login_server" {
-  description = "Azure Container Registry login server"
+variable "redis_host" {
   type        = string
+  description = "Redis host address to be passed as an environment variable."
 }
 
-variable "image_name" {
-  description = "Name of the container image"
+variable "redis_key" {
   type        = string
+  description = "Redis access key to be passed as a secure environment variable."
 }
 
-variable "cpu" {
-  description = "CPU cores for the container"
-  type        = number
-  default     = 1
-}
-
-variable "memory" {
-  description = "Memory in GB for the container"
-  type        = number
-  default     = 1
-}
-
-variable "port" {
-  description = "Port to expose on the container"
-  type        = number
-  default     = 80
+variable "tags" {
+  type        = map(string)
+  description = "Map of tags to apply to the ACI."
 }
