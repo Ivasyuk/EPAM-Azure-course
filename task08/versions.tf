@@ -6,13 +6,13 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">= 3.110.0, < 4.0.0"
     }
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-      version = "~> 2.19"
-    }
     kubectl = {
       source  = "alekc/kubectl"
-      version = ">= 2.0.0"
+      version = ">= 1.14.0"
     }
   }
+}
+
+provider "azurerm" {
+  features {}
 }

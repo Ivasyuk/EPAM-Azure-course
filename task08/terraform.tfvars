@@ -1,14 +1,6 @@
-resource_group_name = "cmtr-efe625c7-mod8-rg"
-location            = "West US 2"
+name_prefix = "cmtr-efe625c7-mod8"
+location    = "West US 2"
+
 tags = {
   Creator = "ruslan_ivasiuk@epam.com"
 }
-name_prefix    = "cmtr-efe625c7-mod8"
-name_prefix_cr = "cmtrefe625c7mod8"
-
-# AKS Node Pool setup (customize if needed)
-aks_node_pool_node_count   = 1
-aks_node_pool_vm_size      = "Standard_DS2_v5"
-aks_node_pool_os_disk_type = "Ephemeral"
-aks_node_pool_name         = "system"
-aks_dns_prefix             = "aks-cluster" # Prefix used in DNS for AKS
