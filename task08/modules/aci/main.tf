@@ -1,4 +1,4 @@
-resource "azurerm_container_group" "container" {
+resource "azurerm_container_group" "container_tas08" {
   name                = var.aci_name
   location            = var.location
   resource_group_name = var.resource_group_name
