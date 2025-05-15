@@ -14,10 +14,12 @@ variable "tags" {
 }
 
 variable "name_prefix" {
+  description = "value name prefix"
   type = string
 }
 
 variable "name_prefix_cr" {
+  default = "value name prefix for cr"
   type = string
 }
 
