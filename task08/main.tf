@@ -62,7 +62,7 @@ module "redis" {
   family                        = "C"
   sku_name                      = "Basic"
   tags                          = var.tags
-  keyvault_id                   = module.keyvault.keyvault_id
+  keyvault_id                   = module.keyvault.id
   redis_hostname_secret_name    = "redis-hostname"
   redis_primary_key_secret_name = "redis-primary-key"
 }
