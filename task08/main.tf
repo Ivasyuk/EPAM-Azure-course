@@ -76,15 +76,29 @@ resource "kubectl_manifest" "deployment" {
     app_image_name   = local.docker_img_name
     image_tag        = "latest"
   })
+  wait_for {
+    field {
+      key   = "status.availableReplicas"
+      value = "1"
+    }
+  }
 
   depends_on = [kubectl_manifest.secret_provider]
 }
 
 resource "kubectl_manifest" "service" {
   yaml_body = file("${path.module}/k8s-manifests/service.yaml")
-
+  wait_for {
+    field {
+      key        = "status.loadBalancer.ingress.[0].ip"
+      value      = "^(\\d+(\\.|$)){4}"
+      value_type = "regex"
+    }
+  }
   depends_on = [kubectl_manifest.deployment]
 }
+
+
 
 data "kubernetes_service" "app_lb" {
   metadata {
