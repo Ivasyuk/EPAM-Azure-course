@@ -26,3 +26,12 @@ module "aci" {
   acr_login_server    = module.acr.login_server
 
 }
+
+module "keyvault" {
+  source              = "./modules/keyvault"
+  name                = local.keyvault_name
+  location            = var.location
+  resource_group_name = local.rg_name
+  sku_name            = "standard"
+  tags                = var.tags
+}
