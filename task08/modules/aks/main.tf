@@ -1,46 +1,23 @@
-resource "azurerm_kubernetes_cluster" "this" {
+resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.name
   location            = var.location
-  resource_group_name = var.resource_group_name
-  dns_prefix          = var.dns_prefix
-  tags                = var.tags
+  resource_group_name = var.resource_group
+  dns_prefix          = var.name
 
   default_node_pool {
-    name         = var.default_node_pool_name
-    node_count   = var.default_node_pool_node_count
-    vm_size      = var.default_node_pool_vm_size
-    os_disk_type = var.default_node_pool_os_disk_type
+    name         = "system"
+    node_count   = var.node_count
+    vm_size      = var.node_size
+    os_disk_type = "Managed"
   }
 
   identity {
     type = "SystemAssigned"
   }
 
-  network_profile {
-    network_plugin    = "azure"
-    load_balancer_sku = "standard"
+  key_vault_secrets_provider {
+    secret_rotation_enabled = false
   }
 
-  storage_profile {
-    blob_driver_enabled         = false
-    disk_driver_enabled         = true
-    file_driver_enabled         = true
-    snapshot_controller_enabled = true
-  }
-}
-
-resource "azurerm_role_assignment" "acr_pull" {
-  principal_id         = azurerm_kubernetes_cluster.this.kubelet_identity[0].object_id
-  role_definition_name = "AcrPull"
-  scope                = var.acr_id
-}
-
-resource "azurerm_key_vault_access_policy" "aks_policy" {
-  key_vault_id = var.keyvault_id
-  tenant_id    = azurerm_kubernetes_cluster.this.identity[0].tenant_id
-  object_id    = azurerm_kubernetes_cluster.this.identity[0].principal_id
-
-  secret_permissions = [
-    "Get",
-  ]
+  tags = var.tags
 }

@@ -1,21 +1,24 @@
-output "kube_config" {
-  description = "Kube config block to connect to the cluster"
-  value       = azurerm_kubernetes_cluster.this.kube_config_raw
-  sensitive   = true
+output "host" {
+  value = azurerm_kubernetes_cluster.aks.kube_config[0].host
 }
 
-output "aks_id" {
-  description = "AKS Resource ID"
-  value       = azurerm_kubernetes_cluster.this.id
+output "client_certificate" {
+  value = azurerm_kubernetes_cluster.aks.kube_config[0].client_certificate
 }
 
-output "aks_host" {
-  description = "AKS API Server Host URL"
-  value       = azurerm_kubernetes_cluster.this.kube_config[0].host
+output "client_key" {
+  value = azurerm_kubernetes_cluster.aks.kube_config[0].client_key
 }
 
-output "aks_client_certificate" {
-  description = "AKS Client Certificate"
-  value       = azurerm_kubernetes_cluster.this.kube_config[0].client_certificate
-  sensitive   = true
+output "cluster_ca_certificate" {
+  value = azurerm_kubernetes_cluster.aks.kube_config[0].cluster_ca_certificate
+}
+
+
+output "name" {
+  value = azurerm_kubernetes_cluster.aks.name
+}
+
+output "id" {
+  value = azurerm_kubernetes_cluster.aks.id
 }
