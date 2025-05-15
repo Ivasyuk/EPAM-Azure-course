@@ -87,3 +87,35 @@ module "aks" {
   # DNS prefix for AKS
   dns_prefix = var.aks_dns_prefix # DNS prefix for the cluster
 }
+
+resource "kubectl_manifest" "redis_secret_provider" {
+  yaml_body = templatefile("${path.module}/k8s-manifests/secret-provider.yaml.tftpl", {
+    keyvault_name = module.keyvault.keyvault_uri
+    tenant_id     = data.azurerm_client_config.current.tenant_id
+  })
+  depends_on = [module.aks]
+}
+
+resource "kubectl_manifest" "app_deployment" {
+  yaml_body = templatefile("${path.module}/k8s-manifests/deployment.yaml.tftpl", {
+    image_name            = "${module.acr.login_server}/${local.image_name}:latest"
+    redis_hostname_secret = "redis-hostname"
+    redis_password_secret = "redis-primary-key"
+  })
+  depends_on = [kubectl_manifest.redis_secret_provider]
+}
+
+resource "kubectl_manifest" "app_service" {
+  yaml_body  = file("${path.module}/k8s-manifests/service.yaml")
+  depends_on = [kubectl_manifest.app_deployment]
+}
+
+data "kubernetes_service" "app_service" {
+  metadata {
+    name      = "app-service"
+    namespace = "default"
+  }
+  depends_on = [kubectl_manifest.app_service]
+}
+
+data "azurerm_client_config" "current" {}
