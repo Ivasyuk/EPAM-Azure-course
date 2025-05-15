@@ -29,9 +29,6 @@ resource "azurerm_container_registry_task" "build" {
   }
 }
 
-resource "azurerm_container_registry_task_schedule" "acr" {
-  name                       = "${var.name}-task-schedule"
+resource "azurerm_container_registry_task_schedule_run_now" "example" {
   container_registry_task_id = azurerm_container_registry_task.build.id
-  schedule                   = "0 */1 * * *" # every 1 hour
-  enabled                    = true
 }
