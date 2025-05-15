@@ -71,12 +71,12 @@ module "aks" {
   source = "./modules/aks"
 
   # Required arguments for AKS
-  name                = local.aks_name                   # Cluster name
-  location            = var.location                     # Region for AKS cluster
-  resource_group_name = local.rg_name # Resource group name
-  tags                = var.tags                       # Tags to be applied to the resources
-  acr_id              = module.acr.id                    # ACR registry ID
-  keyvault_id         = module.keyvault.id               # Key Vault ID
+  name                = local.aks_name     # Cluster name
+  location            = var.location       # Region for AKS cluster
+  resource_group_name = local.rg_name      # Resource group name
+  tags                = var.tags           # Tags to be applied to the resources
+  acr_id              = module.acr.id      # ACR registry ID
+  keyvault_id         = module.keyvault.id # Key Vault ID
 
   # Node pool settings
   default_node_pool_node_count   = var.aks_node_pool_node_count   # Number of nodes
