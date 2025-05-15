@@ -1,41 +1,35 @@
-
-variable "resource_group_name" {
-  description = "name of resource group"
+variable "name" {
   type        = string
+  description = "Name of the Azure Container Registry"
 }
 
 variable "location" {
-  description = "location"
   type        = string
+  description = "Azure region where the ACR will be deployed."
 }
 
-variable "acr_name" {
-  description = "name of container registry"
+variable "resource_group" {
   type        = string
+  description = "Name of the resource group for the ACR."
 }
 
-variable "acr_sku_name" {
-  description = "name of container registry SKU"
+variable "sku" {
   type        = string
+  description = "SKU of the ACR"
 }
 
-variable "context_path" {
-  description = "value of context path"
+variable "image_name" {
   type        = string
-}
-
-variable "context_access_token" {
-  description = "value context_access_token"
-  type        = string
-}
-
-variable "image_names" {
-  description = "name for image"
-  type        = list(any)
-
+  description = "Name of the Docker image to build and push"
 }
 
 variable "git_pat" {
-  type      = string
-  sensitive = true
+  type        = string
+  sensitive   = true
+  description = "Personal Access Token used to access the private GitHub repository"
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "Map of tags to apply to the ACR"
 }
