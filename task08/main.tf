@@ -35,3 +35,18 @@ module "keyvault" {
   sku_name            = "standard"
   tags                = var.tags
 }
+
+
+module "redis" {
+  source                        = "./modules/redis"
+  name                          = local.redis_name
+  location                      = var.location
+  resource_group_name           = local.rg_name
+  capacity                      = 2
+  family                        = "C"
+  sku_name                      = "Basic"
+  tags                          = var.tags
+  keyvault_id                   = module.keyvault.keyvault_id
+  redis_hostname_secret_name    = "redis-hostname"
+  redis_primary_key_secret_name = "redis-primary-key"
+}

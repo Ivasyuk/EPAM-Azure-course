@@ -4,4 +4,5 @@ locals {
   aci_name          = "${var.name_prefix}-ci"
   redis_name        = "${var.name_prefix}-redis"
   docker_image_name = "${var.name_prefix}-app"
+  keyvault_name     = "${var.name_prefix}-kv"
 }
