@@ -5,4 +5,5 @@ locals {
   redis_name        = "${var.name_prefix}-redis"
   docker_image_name = "${var.name_prefix}-app"
   keyvault_name     = "${var.name_prefix}-kv"
+  aks_name          = "${var.name_prefix}-aks"
 }

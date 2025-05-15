@@ -50,3 +50,24 @@ module "redis" {
   redis_hostname_secret_name    = "redis-hostname"
   redis_primary_key_secret_name = "redis-primary-key"
 }
+
+module "aks" {
+  source = "./modules/aks"
+
+  # Required arguments for AKS
+  name                = local.aks_name                   # Cluster name
+  location            = var.location                     # Region for AKS cluster
+  resource_group_name = local.rg_name # Resource group name
+  tags                = var.tags                       # Tags to be applied to the resources
+  acr_id              = module.acr.id                    # ACR registry ID
+  keyvault_id         = module.keyvault.id               # Key Vault ID
+
+  # Node pool settings
+  default_node_pool_node_count   = var.aks_node_pool_node_count   # Number of nodes
+  default_node_pool_vm_size      = var.aks_node_pool_vm_size      # VM size for node pool
+  default_node_pool_name         = var.aks_node_pool_name         # Name of node pool
+  default_node_pool_os_disk_type = var.aks_node_pool_os_disk_type # OS disk type for node pool
+
+  # DNS prefix for AKS
+  dns_prefix = var.aks_dns_prefix # DNS prefix for the cluster
+}
