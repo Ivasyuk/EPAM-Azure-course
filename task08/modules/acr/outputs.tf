@@ -1,5 +1,5 @@
 
-output "acr_login_server" {
+output "login_server" {
   description = "ACR Login Server URL"
   value       = azurerm_container_registry.task08_acr.login_server
 }
