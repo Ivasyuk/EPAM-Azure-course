@@ -28,3 +28,10 @@ resource "azurerm_container_registry_task" "build" {
     context_access_token = var.git_pat
   }
 }
+
+resource "azurerm_container_registry_task_schedule" "acr" {
+  name                       = "${var.name}-task-schedule"
+  container_registry_task_id = azurerm_container_registry_task.build.id
+  schedule                   = "0 */1 * * *" # every 1 hour
+  enabled                    = true
+}
