@@ -5,6 +5,22 @@ resource "azurerm_resource_group" "rg" {
   tags     = var.tags
 }
 
+provider "kubernetes" {
+  host                   = module.aks.kube_config[0].host
+  client_certificate     = base64decode(module.aks.kube_config[0].client_certificate)
+  client_key             = base64decode(module.aks.kube_config[0].client_key)
+  cluster_ca_certificate = base64decode(module.aks.kube_config[0].cluster_ca_certificate)
+}
+
+provider "kubectl" {
+  host                   = module.aks.kube_config[0].host
+  client_certificate     = base64decode(module.aks.kube_config[0].client_certificate)
+  client_key             = base64decode(module.aks.kube_config[0].client_key)
+  cluster_ca_certificate = base64decode(module.aks.kube_config[0].cluster_ca_certificate)
+  load_config_file       = false
+}
+
+
 module "acr" {
   source               = "./modules/acr"
   resource_group_name  = local.rg_name
