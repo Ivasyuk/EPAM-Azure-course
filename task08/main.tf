@@ -139,5 +139,5 @@ module "aci" {
   memory              = 1.5
   redis_url           = module.keyvault.redis_hostname
   redis_pwd           = module.keyvault.redis_primary_key
-  tags                = va.tags
+  tags                = var.tags
 }
