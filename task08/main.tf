@@ -140,4 +140,5 @@ module "aci" {
   redis_url           = module.keyvault.redis_hostname
   redis_pwd           = module.keyvault.redis_primary_key
   tags                = var.tags
+
 }
