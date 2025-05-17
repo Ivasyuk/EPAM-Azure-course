@@ -28,19 +28,19 @@ module "redis" {
   tags           = var.tags
 }
 
+
 module "keyvault" {
-  source                 = "./modules/keyvault"
-  name                   = local.keyvault_name
-  location               = var.location
-  resource_group         = azurerm_resource_group.rg.name
-  tenant_id              = data.azurerm_client_config.current.tenant_id
-  sku                    = "standard"
-  tags                   = var.tags
-  redis_hostname         = module.redis.hostname
-  redis_primary_key      = module.redis.primary_key
-  redis_host_secret_name = "redis-hostname"
-  redis_key_secret_name  = "redis-primary-key"
+  source               = "./modules/keyvault"
+  name                 = local.keyvault_name
+  location             = var.location
+  resource_group_name  = azurerm_resource_group.rg.name
+  redis_host           = module.redis.hostname
+  redis_key            = module.redis.primary_key
+  aks_kubelet_identity = module.aks.kubelet_identity[0].object_id
+  tags                 = var.tags
 }
+
+
 
 module "aks" {
   source         = "./modules/aks"
