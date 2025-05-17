@@ -17,8 +17,8 @@ resource "azurerm_container_registry_task" "build" {
   }
 
   docker_step {
-    dockerfile_path      = "application/Dockerfile"
-    context_path         = "https://github.com/Ivasyuk/EPAM-Azure-course.git#main:task08"
+    dockerfile_path      = "Dockerfile"
+    context_path         = "https://github.com/Ivasyuk/EPAM-Azure-course.git#main:task08/application"
     context_access_token = var.git_pat
     image_names = [
       "${azurerm_container_registry.acr.login_server}/${var.image_repo_name}:latest"
