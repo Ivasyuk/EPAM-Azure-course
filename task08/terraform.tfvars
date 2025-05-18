@@ -4,6 +4,7 @@ tags = {
 }
 location        = "West US"
 name_prefix     = "cmtr-efe625c7-mod8"
+git_repo_url    = "https://github.com/Ivasyuk/EPAM-Azure-course.git"
 git_repo_branch = "main"
 image_repo_name = "cmtr-efe625c7-mod8-app"
 acr_sku         = "Standard"
