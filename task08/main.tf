@@ -19,6 +19,23 @@ module "acr" {
   tags                = var.tags
 }
 
+module "aci" {
+  source              = "./modules/aci"
+  name                = local.aci_name
+  location            = var.location
+  resource_group_name = azurerm_resource_group.rg.name
+  dns_name_label      = local.aci_name
+  image               = "${module.acr.login_server}/${var.image_repo_name}:latest"
+  cpu                 = 1
+  memory              = 1.5
+  redis_url           = module.keyvault.redis_hostname
+  redis_pwd           = module.keyvault.redis_primary_key
+  tags                = var.tags
+
+}
+
+
+
 module "redis" {
   source         = "./modules/redis"
   name           = local.redis_name
@@ -128,17 +145,3 @@ data "kubernetes_service" "flask_service" {
 }
 
 
-module "aci" {
-  source              = "./modules/aci"
-  name                = local.aci_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  dns_name_label      = local.aci_name
-  image               = "${module.acr.login_server}/${var.image_repo_name}:latest"
-  cpu                 = 1
-  memory              = 1.5
-  redis_url           = module.keyvault.redis_hostname
-  redis_pwd           = module.keyvault.redis_primary_key
-  tags                = var.tags
-
-}
