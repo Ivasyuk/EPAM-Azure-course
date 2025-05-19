@@ -35,6 +35,10 @@ module "aci" {
   acr_admin_password  = module.acr.acr_admin_password
   acr_id              = module.acr.acr_id
   tags                = var.tags
+  depends_on = [
+    module.acr,
+    module.keyvault
+  ]
 }
 
 module "redis" {
@@ -46,6 +50,9 @@ module "redis" {
   family         = "C"
   sku            = "Basic"
   tags           = var.tags
+  depends_on = [
+    module.keyvault
+  ]
 }
 
 module "keyvault" {
@@ -70,15 +77,14 @@ module "aks" {
   node_pool_name      = "system"
   tags                = var.tags
   acr_id              = module.acr.acr_id
+
+  depends_on = [
+    module.acr,
+    module.keyvault
+  ]
+
 }
 
-provider "kubectl" {
-  host                   = module.aks.host
-  client_certificate     = base64decode(module.aks.client_certificate)
-  client_key             = base64decode(module.aks.client_key)
-  cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
-  load_config_file       = false
-}
 
 resource "kubectl_manifest" "secret_provider" {
   yaml_body = templatefile("${path.module}/k8s-manifests/secret-provider.yaml.tftpl", {
@@ -89,12 +95,6 @@ resource "kubectl_manifest" "secret_provider" {
     tenant_id                  = data.azurerm_client_config.current.tenant_id
   })
 
-  wait_for {
-    field {
-      key   = "status.conditions[0].type"
-      value = "Ready"
-    }
-  }
 }
 
 resource "kubectl_manifest" "deployment" {
@@ -106,14 +106,19 @@ resource "kubectl_manifest" "deployment" {
     redis_pwd_key    = "redis-primary-key"
   })
 
-  wait_for {
-    field {
-      key   = "status.availableReplicas"
-      value = "1"
-    }
-  }
+  wait_for_rollout = false
 
   depends_on = [kubectl_manifest.secret_provider]
+}
+
+resource "time_sleep" "wait_for_lb_ip" {
+  # Wait for 5 minutes - increased from 3m
+  create_duration = "5m"
+
+  # Ensure it runs after the service manifest is applied
+  depends_on = [
+    kubectl_manifest.service
+  ]
 }
 
 resource "kubectl_manifest" "service" {
