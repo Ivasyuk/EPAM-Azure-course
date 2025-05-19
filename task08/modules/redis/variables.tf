@@ -32,3 +32,15 @@ variable "tags" {
   type        = map(string)
   description = "Map of tags to apply to the Redis instance"
 }
+
+variable "redis_hostname_secret_name" {
+  description = "The name of the Key Vault Secret for Redis hostname"
+  type        = string
+  default     = "redis-hostname"
+}
+
+variable "redis_primary_key_secret_name" {
+  description = "The name of the Key Vault Secret for Redis primary key"
+  type        = string
+  default     = "redis-primary-key"
+}
