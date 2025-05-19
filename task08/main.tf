@@ -81,8 +81,8 @@ resource "kubectl_manifest" "secret_provider" {
   yaml_body = templatefile("${path.module}/k8s-manifests/secret-provider.yaml.tftpl", {
     aks_kv_access_identity_id  = module.aks.kubelet_identity[0].client_id
     kv_name                    = module.keyvault.vault_name
-    redis_url_secret_name      = "redis-hostname"
-    redis_password_secret_name = "redis-primary-key"
+    redis_url_secret_name      = module.redis.redis_hostname_secret_name
+    redis_password_secret_name = module.redis.redis_primary_key_secret_name
     tenant_id                  = data.azurerm_client_config.current.tenant_id
   })
 
@@ -97,13 +97,11 @@ resource "kubectl_manifest" "deployment" {
     redis_pwd_key    = "redis-primary-key"
   })
 
-  wait_for {
-    field {
-      key   = "status.availableReplicas"
-      value = "1"
-    }
-  }
+  wait_for_rollout = false
 
+  depends_on = [
+    kubectl_manifest.service
+  ]
 }
 
 
