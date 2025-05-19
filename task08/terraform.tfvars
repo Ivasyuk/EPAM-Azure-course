@@ -13,3 +13,4 @@ redis_family    = "C"
 redis_capacity  = 2
 node_count      = 1
 node_vm_size    = "Standard_D2ads_v5"
+key_vault_sku   = "standard"

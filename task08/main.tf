@@ -38,27 +38,34 @@ module "aci" {
 }
 
 module "redis" {
-  source         = "./modules/redis"
-  name           = local.redis_name
-  location       = var.location
-  resource_group = azurerm_resource_group.rg.name
-  capacity       = 2
-  family         = "C"
-  sku            = "Basic"
-  tags           = var.tags
+  source                        = "./modules/redis"
+  resource_group_name           = azurerm_resource_group.rg.name
+  location                      = var.location
+  redis_name                    = local.redis_name
+  redis_capacity                = var.redis_capacity
+  redis_family                  = var.redis_family
+  redis_sku                     = var.redis_sku
+  tags                          = var.tags
+  key_vault_id                  = module.keyvault.key_vault_id
+  redis_hostname_secret_name    = "redis-hostname"
+  redis_primary_key_secret_name = "redis-primary-key"
 
+  depends_on = [
+    module.keyvault
+  ]
 }
 
 module "keyvault" {
-  source               = "./modules/keyvault"
-  name                 = local.keyvault_name
-  location             = var.location
-  resource_group_name  = azurerm_resource_group.rg.name
-  redis_host           = module.redis.hostname
-  redis_key            = module.redis.primary_key
-  aks_kubelet_identity = module.aks.kubelet_identity[0].object_id
-  tags                 = var.tags
+  source                 = "./modules/keyvault"
+  resource_group_name    = azurerm_resource_group.rg.name
+  location               = azurerm_resource_group.rg.location
+  key_vault_name         = local.keyvault_name
+  key_vault_sku          = var.key_vault_sku
+  tags                   = var.tags
+  tenant_id              = data.azurerm_client_config.current.tenant_id
+  current_user_object_id = data.azurerm_client_config.current.object_id
 }
+
 
 module "aks" {
   source              = "./modules/aks"

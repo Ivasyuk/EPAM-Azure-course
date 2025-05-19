@@ -1,36 +1,45 @@
-variable "name" {
+variable "resource_group_name" {
+  description = "The name of the resource group in which to create the Redis Cache"
   type        = string
-  description = "Name of the Redis instance"
 }
 
 variable "location" {
+  description = "The location/region where the Redis Cache is created"
   type        = string
-  description = "Azure region where the Redis instance will be deployed"
 }
 
-variable "resource_group" {
+variable "redis_name" {
+  description = "The name of the Redis Cache"
   type        = string
-  description = "Name of the resource group for the Redis instance"
 }
 
-variable "capacity" {
+variable "redis_capacity" {
+  description = "The size of the Redis Cache"
   type        = number
-  description = "Cache size of the Redis instance "
+  default     = 2
 }
 
-variable "family" {
+variable "redis_family" {
+  description = "The family of the Redis Cache"
   type        = string
-  description = "The SKU family to use "
+  default     = "C"
 }
 
-variable "sku" {
+variable "redis_sku" {
+  description = "The SKU of the Redis Cache"
   type        = string
-  description = "SKU name of the Redis cache "
+  default     = "Basic"
 }
 
 variable "tags" {
+  description = "A mapping of tags to assign to the resource"
   type        = map(string)
-  description = "Map of tags to apply to the Redis instance"
+  default     = {}
+}
+
+variable "key_vault_id" {
+  description = "The ID of the Key Vault where Redis secrets will be stored"
+  type        = string
 }
 
 variable "redis_hostname_secret_name" {
