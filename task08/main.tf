@@ -112,7 +112,9 @@ resource "kubectl_manifest" "service" {
     }
   }
 
-  depends_on = [kubectl_manifest.deployment]
+  depends_on = [
+    kubectl_manifest.secret_provider
+  ]
 }
 
 # --- ADD THIS RESOURCE ---
