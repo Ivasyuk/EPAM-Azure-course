@@ -30,7 +30,10 @@ module "aci" {
   memory              = 1.5
   redis_url           = module.keyvault.redis_hostname
   redis_pwd           = module.keyvault.redis_primary_key
-  acr_id              = module.acr.acr_id
+  acr_login_server              = module.acr.acr_login_server
+  acr_admin_username            = module.acr.acr_admin_username
+  acr_admin_password            = module.acr.acr_admin_password
+  acr_id                        = module.acr.acr_id
   tags                = var.tags
 }
 

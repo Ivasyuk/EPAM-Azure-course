@@ -55,4 +55,18 @@ variable "acr_id" {
   description = "The ID of the Azure Container Registry"
 }
 
+variable "acr_login_server" {
+  description = "The login server of the ACR"
+  type        = string
+}
 
+variable "acr_admin_username" {
+  description = "The admin username of the ACR"
+  type        = string
+}
+
+variable "acr_admin_password" {
+  description = "The admin password of the ACR"
+  type        = string
+  sensitive   = true
+}

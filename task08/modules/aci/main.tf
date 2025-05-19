@@ -6,10 +6,6 @@ resource "azurerm_container_group" "aci" {
   ip_address_type     = "Public"
   dns_name_label      = var.dns_name_label
 
-  identity {
-    type = "SystemAssigned"
-  }
-
   container {
     name   = var.name
     image  = var.image
@@ -32,12 +28,10 @@ resource "azurerm_container_group" "aci" {
       REDIS_PWD = var.redis_pwd
     }
   }
-
+image_registry_credential {
+    server   = var.acr_login_server
+    username = var.acr_admin_username
+    password = var.acr_admin_password
+  }
   tags = var.tags
-}
-
-resource "azurerm_role_assignment" "acr_pull" {
-  scope                = var.acr_id
-  role_definition_name = "AcrPull"
-  principal_id         = azurerm_container_group.aci.identity[0].principal_id
 }
