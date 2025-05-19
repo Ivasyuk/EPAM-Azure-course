@@ -74,10 +74,6 @@ module "aks" {
   key_vault_id        = module.keyvault.vault_id
   tenant_id           = data.azurerm_client_config.current.tenant_id
 
-  depends_on = [
-    module.acr,
-    module.keyvault
-  ]
 }
 
 
@@ -101,7 +97,12 @@ resource "kubectl_manifest" "deployment" {
     redis_pwd_key    = "redis-primary-key"
   })
 
-  wait_for_rollout = false
+  wait_for {
+  field {
+    key   = "status.availableReplicas"
+    value = "1"
+  }
+}
 
 }
 
@@ -132,11 +133,13 @@ resource "time_sleep" "wait_for_lb_ip" {
 }
 
 
-data "kubernetes_service" "flask_service" {
+data "kubernetes_service" "app" { # Ensure name matches outputs.tf
   metadata {
-    name      = "flask-service"
-    namespace = "default"
+    name = "redis-flask-app-service"
   }
+
+  depends_on = [
+    # Ensure data is read AFTER the sleep
+    time_sleep.wait_for_lb_ip
+  ]
 }
-
-

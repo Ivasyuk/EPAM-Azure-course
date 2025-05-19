@@ -1,4 +1,4 @@
-resource "azurerm_key_vault" "this" {
+resource "azurerm_key_vault" "kv" {
   name                        = var.name
   location                    = var.location
   resource_group_name         = var.resource_group_name
@@ -11,7 +11,7 @@ resource "azurerm_key_vault" "this" {
 }
 
 resource "azurerm_key_vault_access_policy" "current_user" {
-  key_vault_id = azurerm_key_vault.this.id
+  key_vault_id = azurerm_key_vault.kv.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
@@ -21,25 +21,25 @@ resource "azurerm_key_vault_access_policy" "current_user" {
 }
 
 resource "azurerm_key_vault_access_policy" "aks" {
-  key_vault_id = azurerm_key_vault.this.id
+  key_vault_id = azurerm_key_vault.kv.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = var.aks_kubelet_identity
 
   secret_permissions = [
-    "Get", "List"
+    "Get", "List", "Set", "Delete", "Purge", "Recover", "Backup", "Restore"
   ]
 }
 
 resource "azurerm_key_vault_secret" "redis_hostname" {
   name         = "redis-hostname"
   value        = var.redis_host
-  key_vault_id = azurerm_key_vault.this.id
+  key_vault_id = azurerm_key_vault.kv.id
 }
 
 resource "azurerm_key_vault_secret" "redis_primary_key" {
   name         = "redis-primary-key"
   value        = var.redis_key
-  key_vault_id = azurerm_key_vault.this.id
+  key_vault_id = azurerm_key_vault.kv.id
 }
 
 data "azurerm_client_config" "current" {}

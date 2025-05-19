@@ -1,12 +1,18 @@
 output "vault_name" {
   description = "Key Vault name"
-  value       = azurerm_key_vault.this.name
+  value       = azurerm_key_vault.kv.name
 }
 
 output "vault_uri" {
   description = "URI of the Key Vault"
-  value       = azurerm_key_vault.this.vault_uri
+  value       = azurerm_key_vault.kv.vault_uri
 }
+
+output "vault_id" {
+  description = "The ID of the Key Vault"
+  value       = azurerm_key_vault.kv.id
+}
+
 
 output "redis_hostname" {
   description = "Name of the Redis hostname secret"
