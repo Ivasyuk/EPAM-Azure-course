@@ -99,7 +99,6 @@ resource "kubectl_manifest" "deployment" {
 
   wait_for_rollout = false
 
-  depends_on = [kubectl_manifest.secret_provider]
 }
 
 resource "time_sleep" "wait_for_lb_ip" {
@@ -107,9 +106,7 @@ resource "time_sleep" "wait_for_lb_ip" {
   create_duration = "5m"
 
   # Ensure it runs after the service manifest is applied
-  depends_on = [
-    kubectl_manifest.service
-  ]
+
 }
 
 resource "kubectl_manifest" "service" {
@@ -131,8 +128,6 @@ data "kubernetes_service" "flask_service" {
     name      = "flask-service"
     namespace = "default"
   }
-
-  depends_on = [kubectl_manifest.service]
 }
 
 
