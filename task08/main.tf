@@ -98,11 +98,11 @@ resource "kubectl_manifest" "deployment" {
   })
 
   wait_for {
-  field {
-    key   = "status.availableReplicas"
-    value = "1"
+    field {
+      key   = "status.availableReplicas"
+      value = "1"
+    }
   }
-}
 
 }
 
