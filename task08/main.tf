@@ -59,7 +59,7 @@ module "keyvault" {
   source                 = "./modules/keyvault"
   resource_group_name    = azurerm_resource_group.rg.name
   location               = azurerm_resource_group.rg.location
-  key_vault_name         = local.keyvault_name
+  key_vault_name         = local.key_vault_name
   key_vault_sku          = var.key_vault_sku
   tags                   = var.tags
   tenant_id              = data.azurerm_client_config.current.tenant_id
