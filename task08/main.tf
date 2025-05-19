@@ -98,10 +98,6 @@ resource "kubectl_manifest" "deployment" {
   })
 
   wait_for_rollout = false
-
-  depends_on = [
-    kubectl_manifest.service
-  ]
 }
 
 
