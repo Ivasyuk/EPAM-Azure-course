@@ -28,7 +28,7 @@ resource "azurerm_container_group" "aci" {
       REDIS_PWD = var.redis_pwd
     }
   }
-image_registry_credential {
+  image_registry_credential {
     server   = var.acr_login_server
     username = var.acr_admin_username
     password = var.acr_admin_password
