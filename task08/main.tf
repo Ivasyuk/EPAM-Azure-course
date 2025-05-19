@@ -46,9 +46,7 @@ module "redis" {
   family         = "C"
   sku            = "Basic"
   tags           = var.tags
-  depends_on = [
-    module.keyvault
-  ]
+
 }
 
 module "keyvault" {
