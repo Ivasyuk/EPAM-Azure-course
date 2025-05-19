@@ -49,3 +49,10 @@ variable "tags" {
   type        = map(string)
   description = "Tags"
 }
+
+variable "acr_id" {
+  type        = string
+  description = "The ID of the Azure Container Registry"
+}
+
+

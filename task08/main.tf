@@ -30,11 +30,9 @@ module "aci" {
   memory              = 1.5
   redis_url           = module.keyvault.redis_hostname
   redis_pwd           = module.keyvault.redis_primary_key
+  acr_id              = module.acr.acr_id
   tags                = var.tags
-
 }
-
-
 
 module "redis" {
   source         = "./modules/redis"
@@ -47,7 +45,6 @@ module "redis" {
   tags           = var.tags
 }
 
-
 module "keyvault" {
   source               = "./modules/keyvault"
   name                 = local.keyvault_name
@@ -58,8 +55,6 @@ module "keyvault" {
   aks_kubelet_identity = module.aks.kubelet_identity[0].object_id
   tags                 = var.tags
 }
-
-
 
 module "aks" {
   source              = "./modules/aks"
@@ -73,7 +68,6 @@ module "aks" {
   tags                = var.tags
   acr_id              = module.acr.acr_id
 }
-
 
 provider "kubectl" {
   host                   = module.aks.host
@@ -132,8 +126,6 @@ resource "kubectl_manifest" "service" {
 
   depends_on = [kubectl_manifest.deployment]
 }
-
-
 
 data "kubernetes_service" "flask_service" {
   metadata {
