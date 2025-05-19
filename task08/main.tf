@@ -71,7 +71,13 @@ module "aks" {
   node_pool_name      = "system"
   tags                = var.tags
   acr_id              = module.acr.acr_id
+  key_vault_id        = module.keyvault.vault_id
+  tenant_id           = data.azurerm_client_config.current.tenant_id
 
+  depends_on = [
+    module.acr,
+    module.keyvault
+  ]
 }
 
 
@@ -120,6 +126,18 @@ resource "kubectl_manifest" "service" {
 
   depends_on = [kubectl_manifest.deployment]
 }
+
+# --- ADD THIS RESOURCE ---
+resource "time_sleep" "wait_for_lb_ip" {
+  # Wait for 5 minutes - increased from 3m
+  create_duration = "5m"
+
+  # Ensure it runs after the service manifest is applied
+  depends_on = [
+    kubectl_manifest.service
+  ]
+}
+
 
 data "kubernetes_service" "flask_service" {
   metadata {

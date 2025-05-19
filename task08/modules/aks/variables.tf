@@ -43,3 +43,14 @@ variable "node_pool_name" {
   type        = string
   default     = "system"
 }
+
+
+variable "key_vault_id" {
+  description = "The ID of the Key Vault"
+  type        = string
+}
+
+variable "tenant_id" {
+  description = "The Azure Active Directory tenant ID"
+  type        = string
+}
