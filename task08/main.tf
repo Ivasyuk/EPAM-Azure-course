@@ -28,8 +28,8 @@ module "aci" {
   image               = "${module.acr.login_server}/${var.image_repo_name}:latest"
   cpu                 = 1
   memory              = 1.5
-  redis_url           = module.keyvault.redis_hostname
-  redis_pwd           = module.keyvault.redis_primary_key
+  redis_url           = module.redis.redis_hostname_secret_name
+  redis_pwd           = module.redis.redis_primary_key_secret_name
   acr_login_server    = module.acr.acr_login_server
   acr_admin_username  = module.acr.acr_admin_username
   acr_admin_password  = module.acr.acr_admin_password
@@ -78,7 +78,7 @@ module "aks" {
   node_pool_name      = "system"
   tags                = var.tags
   acr_id              = module.acr.acr_id
-  key_vault_id        = module.keyvault.vault_id
+  key_vault_id        = module.keyvault.key_vault_id
   tenant_id           = data.azurerm_client_config.current.tenant_id
 
 }
@@ -87,7 +87,7 @@ module "aks" {
 resource "kubectl_manifest" "secret_provider" {
   yaml_body = templatefile("${path.module}/k8s-manifests/secret-provider.yaml.tftpl", {
     aks_kv_access_identity_id  = module.aks.kubelet_identity[0].client_id
-    kv_name                    = module.keyvault.vault_name
+    kv_name                    = module.keyvault.key_vault_name
     redis_url_secret_name      = module.redis.redis_hostname_secret_name
     redis_password_secret_name = module.redis.redis_primary_key_secret_name
     tenant_id                  = data.azurerm_client_config.current.tenant_id

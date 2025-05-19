@@ -75,8 +75,3 @@ variable "key_vault_sku" {
   description = "SKU of the Azure Key Vault instance"
   type        = string
 }
-
-variable "key_vault_name" {
-  description = "Name of the Azure Key Vault instance"
-  type        = string
-}
