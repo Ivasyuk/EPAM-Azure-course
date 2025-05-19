@@ -20,15 +20,7 @@ resource "azurerm_key_vault_access_policy" "current_user" {
   ]
 }
 
-resource "azurerm_key_vault_access_policy" "aks" {
-  key_vault_id = azurerm_key_vault.kv.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = var.aks_kubelet_identity
 
-  secret_permissions = [
-    "Get", "List", "Set", "Delete", "Purge", "Recover", "Backup", "Restore"
-  ]
-}
 
 resource "azurerm_key_vault_secret" "redis_hostname" {
   name         = "redis-hostname"
