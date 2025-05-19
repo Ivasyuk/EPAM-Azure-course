@@ -35,10 +35,6 @@ module "aci" {
   acr_admin_password  = module.acr.acr_admin_password
   acr_id              = module.acr.acr_id
   tags                = var.tags
-  depends_on = [
-    module.acr,
-    module.keyvault
-  ]
 }
 
 module "redis" {
@@ -77,11 +73,6 @@ module "aks" {
   node_pool_name      = "system"
   tags                = var.tags
   acr_id              = module.acr.acr_id
-
-  depends_on = [
-    module.acr,
-    module.keyvault
-  ]
 
 }
 
