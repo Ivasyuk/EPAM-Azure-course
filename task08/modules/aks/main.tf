@@ -16,6 +16,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   workload_identity_enabled = true
+  oidc_issuer_enabled      = true
 
   key_vault_secrets_provider {
     secret_rotation_enabled  = true
