@@ -134,14 +134,15 @@ resource "kubectl_manifest" "service" {
   }
 
   depends_on = [
-    kubectl_manifest.secret_provider
+    kubectl_manifest.deployment
   ]
 }
 
-# --- ADD THIS RESOURCE ---
+
+
 resource "time_sleep" "wait_for_lb_ip" {
   # Wait for 5 minutes - increased from 3m
-  create_duration = "5m"
+  create_duration = "6m"
 
   # Ensure it runs after the service manifest is applied
   depends_on = [
