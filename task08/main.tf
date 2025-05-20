@@ -114,7 +114,7 @@ resource "kubectl_manifest" "deployment" {
     redis_pwd_key    = "redis-primary-key"
   })
 
-    wait_for_rollout = false
+  wait_for_rollout = false
 
   depends_on = [
     kubectl_manifest.service
