@@ -68,18 +68,26 @@ module "keyvault" {
 
 
 module "aks" {
-  source              = "./modules/aks"
-  name                = local.aks_name
-  location            = var.location
-  resource_group_name = azurerm_resource_group.rg.name
-  node_count          = var.node_count
-  node_vm_size        = var.node_vm_size
-  dns_prefix          = var.name_prefix
-  node_pool_name      = "system"
-  tags                = var.tags
-  acr_id              = module.acr.acr_id
-  key_vault_id        = module.keyvault.key_vault_id
-  tenant_id           = data.azurerm_client_config.current.tenant_id
+  source                            = "./modules/aks"
+  resource_group_name               = azurerm_resource_group.rg.name
+  location                          = azurerm_resource_group.rg.location
+  aks_name                          = local.aks_name
+  tags                              = var.tags
+  dns_prefix                        = local.aks_name
+  node_pool_name                    = var.aks_node_pool_name
+  node_count                        = var.aks_node_count
+  vm_size                           = var.aks_vm_size                       # Make sure this is set via tfvars/env per task spec (e.g. "Standard_D2ads_v5")
+  os_disk_type                      = var.aks_os_disk_type                  # Make sure this is set via tfvars/env per task spec (e.g. "Ephemeral")
+  default_node_pool_os_disk_size_gb = var.default_node_pool_os_disk_size_gb # Make sure this is passed from root variables
+  acr_id                            = module.acr.acr_id
+  key_vault_id                      = module.keyvault.key_vault_id
+  tenant_id                         = data.azurerm_client_config.current.tenant_id
+  key_vault_name                    = module.keyvault.key_vault_name
+
+  depends_on = [
+    module.acr,
+    module.keyvault
+  ]
 
 }
 

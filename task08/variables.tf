@@ -75,3 +75,33 @@ variable "key_vault_sku" {
   description = "SKU of the Azure Key Vault instance"
   type        = string
 }
+
+variable "aks_node_pool_name" {
+  description = "The name of the default node pool in AKS"
+  type        = string
+  default     = "system"
+}
+
+variable "aks_node_count" {
+  description = "The number of nodes in the default node pool in AKS"
+  type        = number
+  default     = 1
+}
+
+variable "aks_vm_size" {
+  description = "The size of the Virtual Machine in the default node pool in AKS"
+  type        = string
+  default     = "Standard_D2ads_v5" # Task parameter
+}
+
+variable "aks_os_disk_type" {
+  description = "The type of OS disk in the default node pool in AKS"
+  type        = string
+  default     = "Ephemeral" # Task parameter
+}
+
+variable "default_node_pool_os_disk_size_gb" {
+  description = "The size of the OS disk in GB for the default node pool"
+  type        = number
+}
+
