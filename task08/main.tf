@@ -100,7 +100,9 @@ resource "kubectl_manifest" "secret_provider" {
     redis_password_secret_name = module.redis.redis_primary_key_secret_name
     tenant_id                  = data.azurerm_client_config.current.tenant_id
   })
-
+  depends_on = [
+    module.aks
+  ]
 }
 
 resource "kubectl_manifest" "deployment" {
@@ -112,7 +114,11 @@ resource "kubectl_manifest" "deployment" {
     redis_pwd_key    = "redis-primary-key"
   })
 
-  wait_for_rollout = false
+    wait_for_rollout = false
+
+  depends_on = [
+    kubectl_manifest.service
+  ]
 }
 
 
