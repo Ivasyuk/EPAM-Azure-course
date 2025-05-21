@@ -55,7 +55,7 @@ locals {
     },
     {
       name                  = "AllowAKSEgress"
-      source_addresses      = ["10.0.0.0/16"] 
+      source_addresses      = ["10.0.0.0/16"]
       destination_addresses = ["*"]
       destination_ports     = ["*"]
       protocols             = ["Any"]
