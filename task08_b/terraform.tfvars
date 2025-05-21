@@ -1,0 +1,7 @@
+name_prefix      = "cmtr-efe625c7-mod8"
+location         = "West US 2"
+creator          = "ruslan_ivasiuk@epam.com"
+acr_sku          = "Basic"
+aks_vm_size      = "Standard_D2ads_v5"
+aks_os_disk_type = "Ephemeral"
+aci_sku          = "Standard"
