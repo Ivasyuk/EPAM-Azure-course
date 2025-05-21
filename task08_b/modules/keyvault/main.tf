@@ -6,9 +6,9 @@ resource "azurerm_key_vault" "kv" {
   sku_name            = var.key_vault_sku
   tags                = var.tags
 
-  enable_rbac_authorization  = false 
+  enable_rbac_authorization  = false
   soft_delete_retention_days = 7
-  purge_protection_enabled   = false 
+  purge_protection_enabled   = false
 }
 
 

@@ -1,7 +1,7 @@
 data "archive_file" "application_archive" {
   type        = "tar.gz"
-  source_dir  = var.source_content_path                   
-  output_path = "${path.module}/${var.storage_blob_name}" 
+  source_dir  = var.source_content_path
+  output_path = "${path.module}/${var.storage_blob_name}"
 }
 
 resource "azurerm_storage_account" "sa" {
@@ -24,5 +24,5 @@ resource "azurerm_storage_blob" "app_archive_blob" {
   storage_account_name   = azurerm_storage_account.sa.name
   storage_container_name = azurerm_storage_container.app_content.name
   type                   = "Block"
-  source                 = data.archive_file.application_archive.output_path 
+  source                 = data.archive_file.application_archive.output_path
 }
