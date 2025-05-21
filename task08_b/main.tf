@@ -7,15 +7,15 @@ resource "azurerm_resource_group" "rg" {
 }
 
 module "keyvault" {
-  source = "./modules/keyvault" 
+  source = "./modules/keyvault"
 
   key_vault_name         = local.keyvault_name
   resource_group_name    = azurerm_resource_group.rg.name
   location               = azurerm_resource_group.rg.location
-  key_vault_sku          = "standard" 
+  key_vault_sku          = "standard"
   tags                   = local.common_tags
   tenant_id              = data.azurerm_client_config.current.tenant_id
-  current_user_object_id = data.azurerm_client_config.current.object_id 
+  current_user_object_id = data.azurerm_client_config.current.object_id
 }
 
 module "aci_redis" {
@@ -25,29 +25,29 @@ module "aci_redis" {
   location            = azurerm_resource_group.rg.location
   tags                = local.common_tags
 
-  aci_redis_name = local.aci_redis_name 
-  aci_sku        = var.aci_sku          
+  aci_redis_name = local.aci_redis_name
+  aci_sku        = var.aci_sku
 
-  key_vault_id               = module.keyvault.key_vault_id     
+  key_vault_id               = module.keyvault.key_vault_id
   redis_hostname_secret_name = local.redis_hostname_secret_name
-  redis_password_secret_name = local.redis_password_secret_name 
+  redis_password_secret_name = local.redis_password_secret_name
 
   depends_on = [
-    module.keyvault 
+    module.keyvault
   ]
 }
 
 module "storage" {
-  source = "./modules/storage" 
+  source = "./modules/storage"
 
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   tags                = local.common_tags
 
-  storage_account_name             = local.sa_name                        
-  storage_account_replication_type = var.storage_account_replication_type 
-  storage_container_name           = local.storage_container_name         
-  storage_blob_name                = local.storage_blob_name              
+  storage_account_name             = local.sa_name
+  storage_account_replication_type = var.storage_account_replication_type
+  storage_container_name           = local.storage_container_name
+  storage_blob_name                = local.storage_blob_name
 
 
   source_content_path = "./application"
@@ -57,7 +57,7 @@ resource "time_static" "sas_start_time" {
 }
 
 resource "time_offset" "sas_expiry_time" {
-  offset_hours = 1 
+  offset_hours = 1
   base_rfc3339 = time_static.sas_start_time.rfc3339
 }
 
@@ -77,52 +77,52 @@ data "azurerm_storage_account_blob_container_sas" "app_content_sas" {
     list   = false
   }
 
-  depends_on = [module.storage] 
+  depends_on = [module.storage]
 }
 
 
 module "acr" {
-  source = "./modules/acr" 
+  source = "./modules/acr"
 
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   tags                = local.common_tags
 
-  acr_name          = local.acr_name          
-  acr_sku           = var.acr_sku             
-  docker_image_name = local.docker_image_name 
+  acr_name          = local.acr_name
+  acr_sku           = var.acr_sku
+  docker_image_name = local.docker_image_name
 
   acr_task_build_context_blob_url  = module.storage.storage_blob_url
   acr_task_build_context_sas_token = data.azurerm_storage_account_blob_container_sas.app_content_sas.sas
 
   depends_on = [
     module.storage,
-    data.azurerm_storage_account_blob_container_sas.app_content_sas 
+    data.azurerm_storage_account_blob_container_sas.app_content_sas
   ]
 }
 
 module "aks" {
-  source = "./modules/aks" 
+  source = "./modules/aks"
 
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   tags                = local.common_tags
 
-  aks_name                          = local.aks_name                        
-  dns_prefix                        = local.aks_name                       
-  node_pool_name                    = var.aks_node_pool_name                
-  node_count                        = var.aks_node_count                   
-  vm_size                           = var.aks_vm_size                       
-  os_disk_type                      = var.aks_os_disk_type                  
-  default_node_pool_os_disk_size_gb = var.default_node_pool_os_disk_size_gb 
+  aks_name                          = local.aks_name
+  dns_prefix                        = local.aks_name
+  node_pool_name                    = var.aks_node_pool_name
+  node_count                        = var.aks_node_count
+  vm_size                           = var.aks_vm_size
+  os_disk_type                      = var.aks_os_disk_type
+  default_node_pool_os_disk_size_gb = var.default_node_pool_os_disk_size_gb
 
-  acr_id       = module.acr.acr_id                            
-  key_vault_id = module.keyvault.key_vault_id                 
-  tenant_id    = data.azurerm_client_config.current.tenant_id 
+  acr_id       = module.acr.acr_id
+  key_vault_id = module.keyvault.key_vault_id
+  tenant_id    = data.azurerm_client_config.current.tenant_id
 
   depends_on = [
-    module.acr,     
-    module.keyvault 
+    module.acr,
+    module.keyvault
   ]
 }
 
@@ -140,8 +140,8 @@ module "aca" {
   image_name      = local.docker_image_name
   image_tag       = local.docker_image_tag
 
-  tenant_id = data.azurerm_client_config.current.tenant_id
-  acr_id    = module.acr.acr_id 
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  acr_id                     = module.acr.acr_id
   key_vault_id               = module.keyvault.key_vault_id
   redis_hostname_secret_name = local.redis_hostname_secret_name
   redis_password_secret_name = local.redis_password_secret_name
