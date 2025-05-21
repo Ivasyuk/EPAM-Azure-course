@@ -1,5 +1,5 @@
 unique_id           = "cmtr-efe625c7-mod9"
-location            = "US West 2"
+location            = "West US 2"
 rg_name             = "cmtr-efe625c7-mod9-rg"
 vnet_name           = "cmtr-efe625c7-mod9-vnet"
 vnet_space          = "10.0.0.0/16"
