@@ -1,5 +1,5 @@
 name_prefix      = "cmtr-efe625c7-mod8b"
-location         = "West US 2"
+location         = "West US"
 creator          = "ruslan_ivasiuk@epam.com"
 acr_sku          = "Basic"
 aks_vm_size      = "Standard_D2ads_v5"
