@@ -2,7 +2,7 @@ locals {
   name_prefix = var.name_prefix
 
   rg_name        = "${local.name_prefix}-rg"
-  aci_redis_name = "${local.name_prefix}-redis-ci"
+  redis_aci_name = "${local.name_prefix}-redis-ci"
   sa_name        = replace("${local.name_prefix}sa", "-", "")
   keyvault_name  = "${local.name_prefix}-kv"
   acr_name       = replace("${local.name_prefix}cr", "-", "")

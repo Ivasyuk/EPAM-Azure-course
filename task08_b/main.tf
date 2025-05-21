@@ -25,7 +25,7 @@ module "aci_redis" {
   location            = azurerm_resource_group.rg.location
   tags                = local.common_tags
 
-  aci_redis_name = local.aci_redis_name
+  redis_aci_name = local.redis_aci_name
   aci_sku        = var.aci_sku
 
   key_vault_id               = module.keyvault.key_vault_id

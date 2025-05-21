@@ -8,7 +8,7 @@ variable "location" {
   type        = string
 }
 
-variable "aci_redis_name" {
+variable "redis_aci_name" {
   description = "The name for the Azure Container Instance for Redis."
   type        = string
 }

@@ -8,14 +8,14 @@ resource "random_password" "redis_password" {
 }
 
 resource "azurerm_container_group" "redis_ci" {
-  name                = var.aci_redis_name
+  name                = var.redis_aci_name
   location            = var.location
   resource_group_name = var.resource_group_name
   ip_address_type     = "Public"
   os_type             = "Linux"
   sku                 = var.aci_sku
   tags                = var.tags
-  dns_name_label      = "${var.aci_redis_name}-dns"
+  dns_name_label      = "${var.redis_aci_name}-dns"
   container {
     name = "redis"
 
