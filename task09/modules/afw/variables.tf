@@ -13,6 +13,11 @@ variable "vnet_name" {
   type        = string
 }
 
+variable "vnet_id" {
+  description = "ID of the existing virtual network"
+  type        = string
+}
+
 variable "vnet_address_space" {
   description = "VNet address space"
   type        = string
