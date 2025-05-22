@@ -23,6 +23,7 @@ resource "azurerm_firewall" "firewall" {
   resource_group_name = var.resource_group_name
   sku_name            = "AZFW_VNet"
   sku_tier            = "Standard"
+  dns_proxy_enabled   = true
 
   ip_configuration {
     name                 = "configuration"
