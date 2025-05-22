@@ -36,7 +36,7 @@ resource "kubectl_manifest" "deployment" {
 }
 
 resource "time_sleep" "wait_for_k8s_lb_ip" {
-  create_duration = "5m"
+  create_duration = "7m"
 
   depends_on = [
     kubectl_manifest.service
