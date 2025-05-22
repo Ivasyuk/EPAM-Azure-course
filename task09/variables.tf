@@ -1,4 +1,4 @@
-variable "resource_group_name" {
+variable "rg_name" {
   type        = string
   description = "Name of the existing resource group"
 }
@@ -18,7 +18,7 @@ variable "vnet_address_space" {
   description = "Address space of the existing VNet"
 }
 
-variable "aks_subnet_name" {
+variable "subnet_name" {
   type        = string
   description = "Name of the existing AKS subnet"
 }
