@@ -1,6 +1,3 @@
 locals {
-  default_tags = {
-    environment = var.environment
-    managedBy   = "terraform"
-  }
+  environment = "mod9" # Required name for Azuenvironment              = "mod9"re Firewall subnet
 }
