@@ -11,12 +11,12 @@ locals {
     }
     network = {
       name     = "${var.unique_id}-network-rules"
-      priority = 200
+      priority = 100
       action   = "Allow"
     }
-    application = {
+    application = { 
       name     = "${var.unique_id}-app-rules"
-      priority = 300
+      priority = 100
       action   = "Allow"
     }
   }
