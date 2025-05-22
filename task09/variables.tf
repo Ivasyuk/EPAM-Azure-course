@@ -33,10 +33,6 @@ variable "aks_loadbalancer_ip" {
   description = "Public IP of AKS load balancer"
 }
 
-variable "environment" {
-  type        = string
-  description = "Environment tag value"
-}
 
 variable "project_prefix" {
   type        = string
